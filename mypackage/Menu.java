@@ -8,8 +8,15 @@ import java.awt.event.ActionListener;
 public class Menu {
     static JFrame frame = new JFrame();
     static JButton newGameButton = new JButton("Create New Game");
+    static JButton load = new JButton ("Load");
     
     public static void initialize(){
+        // Load Button Rebecca
+        
+        load.setBounds(100,50,50,50);
+        load.setSize(150,150);
+        frame.add(load);
+
         newGameButton.setBounds(100, 50, 50, 50);
         newGameButton.setSize(150,150);
         frame.add(newGameButton);
