@@ -12,11 +12,10 @@ public class Menu {
     
     public static void initialize(){
         // Load Button Rebecca
-        
         load.setBounds(100,50,50,50);
         load.setSize(150,150);
         frame.add(load);
-
+        // new game button Emma
         newGameButton.setBounds(100, 50, 50, 50);
         newGameButton.setSize(150,150);
         frame.add(newGameButton);
