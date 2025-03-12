@@ -1,3 +1,5 @@
+package mypackage;
+
 import java.io.File;
 import java.nio.file.Files;
 
@@ -43,15 +45,15 @@ public class ImageService {
     }
 
     //Creates new folder for images and copies a selected image to that folder
-    public static void saveImage() throws Exception{
-        File image = fileFinder();
+    public static void saveImage(File image) throws Exception{
+        if(image == null) return;
         File imageFile = new File("Images");
         
         //makes the folder if it doesn't already exist
         imageFile.mkdirs();
         
         //copies image into folder
-        Files.copy(image.toPath(), new File(imageFile.getAbsolutePath() + "/" + image.getName()).toPath(), REPLACE_EXISTING);
+        Files.copy(image.toPath(), new File(imageFile, image.getName()).toPath(), REPLACE_EXISTING);
     }
 
     //User selects from images in the image folder

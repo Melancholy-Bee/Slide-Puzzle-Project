@@ -19,6 +19,12 @@ public class Menu {
         newGameButton.setBounds(100, 50, 50, 50);
         newGameButton.setSize(150,150);
         frame.add(newGameButton);
+        newGameButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ImageProcessor.processAndDisplayImage(); // Calls your image processing code
+            }
+        });
         frame.setSize(1000,1000);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
