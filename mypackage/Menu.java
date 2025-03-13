@@ -3,6 +3,7 @@ package mypackage;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Color;
 import java.awt.*;
 
 public class Menu {
@@ -21,9 +22,17 @@ public class Menu {
         panel.setBackground(new Color(123,167,237));
         
         // Load Button Rebecca
-        load.setBounds(100,50,50,50);
-        load.setSize(150,150);
+        load.setFocusable(false);
+        load.setPreferredSize(200,75);
+        load.setFont(new Font(("Dialog", Font.PLAIN,15)));
+        load.setBackground(Color.Blue);
         panel.add(load);
+        load.addActionListener(new loadListener(){
+            //this should pull up saved games
+
+        }):
+
+
         // new game button Emma
         newGameButton.setFocusable((false));
         newGameButton.setFont(new Font("Dialog", Font.PLAIN, 15));
