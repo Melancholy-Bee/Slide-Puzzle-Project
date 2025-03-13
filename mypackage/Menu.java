@@ -23,20 +23,18 @@ public class Menu {
         
         // Load Button Rebecca
         load.setFocusable(false);
-        load.setPreferredSize(200,75);
-        load.setFont(new Font(("Dialog", Font.PLAIN,15)));
-        load.setBackground(Color.Blue);
+        load.setPreferredSize(new Dimension(200,75));
+        load.setFont(new Font("Dialog", Font.PLAIN, 15));
+        load.setBackground(new Color(0,115,150));
         panel.add(load);
-        load.addActionListener(new loadListener(){
-            //this should pull up saved games
 
-        }):
 
 
         // new game button Emma
         newGameButton.setFocusable((false));
         newGameButton.setFont(new Font("Dialog", Font.PLAIN, 15));
         newGameButton.setPreferredSize(new Dimension(200,75));
+        newGameButton.setBackground(new Color(0,115,150));
         panel.add(newGameButton);
 
         newGameButton.addActionListener(new ActionListener() {
