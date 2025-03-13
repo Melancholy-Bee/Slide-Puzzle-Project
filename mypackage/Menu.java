@@ -19,7 +19,7 @@ public class Menu {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         frame.add(panel, BorderLayout.CENTER);
-        panel.setBackground(new Color(123,167,237));
+        panel.setBackground(new Color(169,221,214));
         
         // Load Button Rebecca
         load.setFocusable(false);
