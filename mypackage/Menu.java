@@ -29,7 +29,6 @@ public class Menu {
         panel.add(load);
 
 
-
         // new game button Emma
         newGameButton.setFocusable((false));
         newGameButton.setFont(new Font("Dialog", Font.PLAIN, 15));
@@ -43,5 +42,7 @@ public class Menu {
                 ImageProcessor.processAndDisplayImage(); // Calls your image processing code
             }
         });
+
+        //quit and settings buttons Sylas
     }
 }
