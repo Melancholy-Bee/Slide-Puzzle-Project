@@ -3,7 +3,14 @@ package mypackage;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.ArrayList;
 import java.awt.*;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class Menu {
     static JFrame frame = new JFrame();
@@ -40,7 +47,31 @@ public class Menu {
         newGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ImageProcessor.processAndDisplayImage(); // Calls your image processing code
+                try {
+                    // Use ImageService to let the user pick an image
+                    File selectedFile = ImageService.fileFinder();
+                    if (selectedFile == null) {
+                        System.out.println("No image selected. Exiting...");
+                        return;
+                    }
+
+                    ImageService.saveImage(selectedFile); //Saves Image
+                
+                    System.out.println("Image selected: " + selectedFile.getAbsolutePath());
+                
+                    // Process the image (chop into pieces)
+                    ArrayList<ArrayList<BufferedImage>> choppedImages = ImageProcessor.processImage(selectedFile);
+                    if (choppedImages == null) {
+                        System.out.println("Image processing failed.");
+                        return;
+                    }
+                
+                    // Display the chopped images
+                    ImageProcessor.displayChoppedImages(choppedImages);
+                } catch (Exception er) {
+                    System.err.println("Error: " + er.getMessage());
+                    er.printStackTrace(); // Optional: useful for debugging
+                }
             }
         });
 
