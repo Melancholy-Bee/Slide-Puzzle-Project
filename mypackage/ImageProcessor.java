@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ImageProcessor {
     public static ArrayList<ArrayList<BufferedImage>> processImage(File imageFile) {
@@ -119,7 +120,7 @@ public class ImageProcessor {
         }
 
         System.out.println("Chopping complete! Images stored in 'chopped_images' folder.");
-        return imagePieces;
+        return randomize(imagePieces);
     }
 
     public static void displayChoppedImages(ArrayList<ArrayList<BufferedImage>> imagePieces) {
@@ -129,6 +130,7 @@ public class ImageProcessor {
         }
 
         int n = imagePieces.size();
+        int gap = 5;
 
         JFrame frame = new JFrame("Chopped Image Display");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -136,16 +138,15 @@ public class ImageProcessor {
         JPanel panel = new JPanel() {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                int gap = 5;
                 int pieceWidth = imagePieces.get(0).get(0).getWidth();
                 int pieceHeight = imagePieces.get(0).get(0).getHeight();
-                setBackground(Color.WHITE);
+                setBackground(Color.GRAY);
 
-                for (int row = 0; row < n; row++) {
-                    for (int col = 0; col < n; col++) {
+                for (int row = 0; row < imagePieces.size(); row++) {
+                    for (int col = 0; col < imagePieces.get(row).size(); col++) {
                         if (imagePieces.get(row).get(col) != null) {
-                            int x = col * (pieceWidth + gap);
-                            int y = row * (pieceHeight + gap);
+                            int x = col * (pieceWidth + gap) + gap;
+                            int y = row * (pieceHeight + gap) + gap;
                             g.drawImage(imagePieces.get(row).get(col), x, y, pieceWidth, pieceHeight, this);
                         }
                     }
@@ -153,8 +154,8 @@ public class ImageProcessor {
             }
         };
 
-        int panelWidth = n * (imagePieces.get(0).get(0).getWidth() + 5);
-        int panelHeight = n * (imagePieces.get(0).get(0).getHeight() + 5);
+        int panelWidth = n * (imagePieces.get(0).get(0).getWidth() + 7);
+        int panelHeight = n * (imagePieces.get(0).get(0).getHeight() + 7);
         panel.setPreferredSize(new Dimension(panelWidth, panelHeight));
 
         JScrollPane scrollPane = new JScrollPane(panel);
@@ -162,5 +163,30 @@ public class ImageProcessor {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    }
+
+    public static ArrayList<ArrayList<BufferedImage>> randomize(ArrayList<ArrayList<BufferedImage>> imagePieces){
+        if (imagePieces.isEmpty()) return imagePieces;
+
+        int lastRow = imagePieces.size() - 1;
+        int lastCol = imagePieces.get(lastRow).size() - 1;
+
+        imagePieces.get(lastRow).remove(lastCol);
+
+        ArrayList<BufferedImage> flatList = new ArrayList<>();
+        for (ArrayList<BufferedImage> row : imagePieces) {
+            flatList.addAll(row);
+        }
+
+        Collections.shuffle(flatList);
+
+        int index = 0;
+        for (int i = 0; i < imagePieces.size(); i++) {
+            for (int j = 0; j < imagePieces.get(i).size(); j++) {
+                imagePieces.get(i).set(j, flatList.get(index++));
+            }
+        }
+
+        return imagePieces;
     }
 }
