@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Random;
 
 public class ImageProcessor {
     public static ArrayList<ArrayList<BufferedImage>> processImage(File imageFile) {
@@ -178,7 +178,41 @@ public class ImageProcessor {
             flatList.addAll(row);
         }
 
-        Collections.shuffle(flatList);
+        ArrayList<Integer> indexs = new ArrayList<>();
+        for(int i = 0; i <= flatList.size(); i++){
+            indexs.add(i);
+        }
+        boolean solvable = false;
+        do{
+        Random r = new Random();
+        for (int i = flatList.size() - 1; i > 0; i--) {
+            int j = r.nextInt(i + 1);
+            BufferedImage temp = flatList.get(i);
+            flatList.set(i, flatList.get(j));
+            flatList.set(j, temp);
+
+            int tempI = indexs.get(i);
+            indexs.set(i, indexs.get(j));
+            indexs.set(j, tempI);
+        }
+
+        int inversions = 0;
+        for (int i = 0; i < indexs.size() - 1; i++) {
+            for (int j = i + 1; j < indexs.size(); j++) {
+                if (indexs.get(i) > indexs.get(j)) {
+                    inversions++;
+                }
+            }
+        }
+        
+        if(inversions % 2 == 0){
+            solvable = true;
+        }
+        else{
+            solvable = false;
+        }
+
+        } while(!solvable);
 
         int index = 0;
         for (int i = 0; i < imagePieces.size(); i++) {
@@ -189,4 +223,5 @@ public class ImageProcessor {
 
         return imagePieces;
     }
+
 }
