@@ -13,12 +13,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Menu {
-    static JFrame frame = new JFrame();
-    static JPanel panel = new JPanel();
-    static JButton newGameButton = new JButton("Create New Game");
-    static JButton load = new JButton ("Load Current Game");
-    static JButton settings = new JButton("Settings");
-    static JButton quit = new JButton("Quit");
+    private static JFrame frame = new JFrame();
+    private static JPanel panel = new JPanel();
+    private static JButton newGameButton = new JButton("Create New Game");
+    private static JButton load = new JButton ("Load Current Game");
+    private static JButton settings = new JButton("Settings");
+    private static JButton quit = new JButton("Quit");
 
     public static void initialize(){
         frame.setTitle("Picture This");
@@ -35,7 +35,6 @@ public class Menu {
         load.setFont(new Font("Dialog", Font.PLAIN, 15));
         load.setBackground(new Color(0,115,150));
         panel.add(load);
-
 
         // new game button Emma
         newGameButton.setFocusable((false));
