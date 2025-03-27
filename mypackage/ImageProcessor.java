@@ -182,8 +182,8 @@ public class ImageProcessor {
         for(int i = 0; i <= flatList.size(); i++){
             indexs.add(i);
         }
-        boolean solvable = false;
-        do{
+        //boolean solvable = false;
+        //do{
         Random r = new Random();
         for (int i = flatList.size() - 1; i > 0; i--) {
             int j = r.nextInt(i + 1);
@@ -204,15 +204,24 @@ public class ImageProcessor {
                 }
             }
         }
+
+        if(inversions % 2 != 0){
+            BufferedImage temp = flatList.get(0);
+            flatList.set(0, flatList.get(1));
+            flatList.set(1, temp); 
+        }
         
-        if(inversions % 2 == 0){
+        /*if(inversions % 2 == 0){
             solvable = true;
         }
         else{
+            //BufferedImage temp = flatList.get(0);
+            //flatList.set(0, flatList.get(1));
+            //flatList.set(1, temp);
             solvable = false;
-        }
+        }*/
 
-        } while(!solvable);
+        //} while(!solvable);
 
         int index = 0;
         for (int i = 0; i < imagePieces.size(); i++) {
