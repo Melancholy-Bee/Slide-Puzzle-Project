@@ -16,7 +16,7 @@ public class Menu {
     static JFrame frame = new JFrame();
     static JPanel panel = new JPanel();
     static JButton newGameButton = new JButton("Create New Game");
-    static JButton load = new JButton ("Load");
+    static JButton load = new JButton ("Load Current Game");
     static JButton settings = new JButton("Settings");
     static JButton quit = new JButton("Quit");
 
@@ -81,13 +81,6 @@ public class Menu {
         settings.setPreferredSize(new Dimension(200, 75));
         settings.setBackground(new Color(0, 115, 150));
         panel.add(settings);
-
-        settings.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0); // Closes the program
-            }
-        });
 
         //quit button sylas
         quit.setFocusable(false);
