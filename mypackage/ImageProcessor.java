@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class ImageProcessor {
-    public static ArrayList<ArrayList<BufferedImage>> processImage(File imageFile) {
+    public static ArrayList<ArrayList<BufferedImage>> processImage(File imageFile, int n) {
         try {
             // Read the image from file
             BufferedImage originalImage = ImageIO.read(imageFile);
@@ -20,7 +20,7 @@ public class ImageProcessor {
                 return null;
             }
     
-            // Ask for chop size
+            /*  Ask for chop size
             String input = JOptionPane.showInputDialog("Enter chop size (2 to 6):");
             if (input == null) return null; // Cancelled input
     
@@ -31,7 +31,7 @@ public class ImageProcessor {
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Invalid input. Enter a number between 2 and 6.");
                 return null;
-            }
+            }*/
     
             BufferedImage resizedImage = resizeImage(originalImage, 600, 600);
             BufferedImage croppedImage = cropImageToFit(resizedImage, n);
@@ -182,8 +182,7 @@ public class ImageProcessor {
         for(int i = 0; i <= flatList.size(); i++){
             indexs.add(i);
         }
-        //boolean solvable = false;
-        //do{
+
         Random r = new Random();
         for (int i = flatList.size() - 1; i > 0; i--) {
             int j = r.nextInt(i + 1);
@@ -210,18 +209,6 @@ public class ImageProcessor {
             flatList.set(0, flatList.get(1));
             flatList.set(1, temp); 
         }
-        
-        /*if(inversions % 2 == 0){
-            solvable = true;
-        }
-        else{
-            //BufferedImage temp = flatList.get(0);
-            //flatList.set(0, flatList.get(1));
-            //flatList.set(1, temp);
-            solvable = false;
-        }*/
-
-        //} while(!solvable);
 
         int index = 0;
         for (int i = 0; i < imagePieces.size(); i++) {
