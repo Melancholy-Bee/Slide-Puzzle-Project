@@ -25,7 +25,7 @@ public class ImageButton extends JButton {
         }
         this.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Clicked " + imageFile.getAbsolutePath());
+                System.out.println("Clicked " + imageFile.getAbsolutePath()); //run rest of code from here
             }
          });
     }
