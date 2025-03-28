@@ -7,23 +7,26 @@ import java.util.*;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.UIManager;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//Written by Landon
 public class ImageSelector {
     private static ImageSelector imageSelectorInstance = null;
+    boolean windowOpen;
     JFrame frame;
     JPanel panel;
+    File selectedFile;
     private ImageSelector(){
         frame = new JFrame("Default Image Selector");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1080, 600);
-
+        windowOpen = true;
         panel = new JPanel();
         panel.setLayout(new GridLayout(0, 3, 5, 5));
+        selectedFile = null;
     }
 
     // Singleton implementation of the imageSelector
@@ -35,12 +38,14 @@ public class ImageSelector {
         return imageSelectorInstance;
     }
 
+    //creates the image selection window
     public void selectGameImage(){
         
         ArrayList<ImageButton> imageButtons = getImageButtons();
         refreshButtons(imageButtons);
     }
 
+    //gets a list of the image files
     public ArrayList<File> getFileList(String path){
         File folder = new File(path);
         File[] arrayOfFiles = folder.listFiles();
@@ -54,7 +59,7 @@ public class ImageSelector {
         return listOfFiles;
     }
     
-
+    //creates a list of buttons with images
     private ArrayList<ImageButton> getImageButtons(){
         File folder = new File("Images");
         ArrayList<File> listOfFiles = getFileList(folder.getAbsolutePath());
@@ -67,13 +72,14 @@ public class ImageSelector {
         return tempButtonList;
     }
 
+    //adds imageButtons to the panel
     private void addImages(ArrayList<ImageButton> imageButtons){
-            //Adds the image buttons to the panel
             for (int i = 0; i < imageButtons.size(); i++) {
                 panel.add(imageButtons.get(i));
             }
     }
 
+    //refreshes images and buttons on the selection window
     private void refreshButtons(ArrayList<ImageButton> imageButtons){
         panel.removeAll();
         frame.getContentPane().removeAll();
@@ -102,4 +108,5 @@ public class ImageSelector {
         frame.add(scrollPane);
         frame.setVisible(true);
     }
+
 }
