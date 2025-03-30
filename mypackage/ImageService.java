@@ -57,10 +57,10 @@ public class ImageService {
     }
 
     //User selects from images in the image folder
-    public static Image loadImage() throws Exception {
-        String imageFolderPath = (new File("Images")).getAbsolutePath(); //holds the desired filepath to the imageFolder
-        File imageFile = fileFinder(imageFolderPath); //opens file chooser at the image folder
-        if(imageFile != null){
+    public static Image loadImage(String fileName) throws Exception {
+        String imageFilePath = (new File("Images")).getAbsolutePath() + "/" + fileName; //holds the desired filepath to the imageFolder
+        File imageFile = new File(imageFilePath); //opens file chooser at the image folder
+        if(imageFile.exists()){
             Image image = ImageIO.read(imageFile);
             return image;
         }
