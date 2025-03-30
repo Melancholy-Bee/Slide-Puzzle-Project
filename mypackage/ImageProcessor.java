@@ -45,32 +45,6 @@ public class ImageProcessor {
         }
     }
 
-    /*public static BufferedImage resizeImage(BufferedImage image, int targetWidth, int targetHeight) {
-        int currentWidth = image.getWidth();
-        int currentHeight = image.getHeight();
-        BufferedImage resized = image;
-    
-        // Resize in multiple steps for better quality
-        while (currentWidth > targetWidth || currentHeight > targetHeight) {
-            currentWidth = Math.max(currentWidth / 2, targetWidth);
-            currentHeight = Math.max(currentHeight / 2, targetHeight);
-            
-            BufferedImage temp = new BufferedImage(currentWidth, currentHeight, BufferedImage.TYPE_INT_RGB);
-            Graphics2D g2d = temp.createGraphics();
-            
-            // Set high-quality rendering hints
-            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-    
-            // Draw the resized image
-            g2d.drawImage(resized, 0, 0, currentWidth, currentHeight, null);
-            g2d.dispose();
-            resized = temp;
-        }
-        return resized;
-    }*/
-
     public static BufferedImage resizeImage(BufferedImage image, int targetWidth, int targetHeight) {
         int currentWidth = image.getWidth();
         int currentHeight = image.getHeight();
