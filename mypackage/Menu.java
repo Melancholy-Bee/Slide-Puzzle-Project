@@ -74,6 +74,13 @@ public class Menu {
         gbc.gridy = 3;
         panel.add(settings, gbc);
 
+        settings.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SettingsMenu.initialize(frame);
+            }
+        });
+
         //quit button sylas
         quit.setFocusable(false);
         quit.setFont(new Font("Dialog", Font.BOLD, 15));
