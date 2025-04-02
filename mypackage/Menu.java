@@ -67,10 +67,10 @@ public class Menu {
         });
 
         //settings button Sylas
-        settings.setFocusable(false);
+        settings.setFocusable((false));
         settings.setFont(new Font("Dialog", Font.BOLD, 15));
-        settings.setPreferredSize(new Dimension(200, 75));
-        settings.setBackground(new Color(0, 115, 150));
+        settings.setPreferredSize(new Dimension(200,75));
+        settings.setBackground(new Color(0,115,150));
         gbc.gridy = 3;
         panel.add(settings, gbc);
 
@@ -82,10 +82,10 @@ public class Menu {
         });
 
         //quit button sylas
-        quit.setFocusable(false);
+        quit.setFocusable((false));
         quit.setFont(new Font("Dialog", Font.BOLD, 15));
-        quit.setPreferredSize(new Dimension(200, 75));
-        quit.setBackground(new Color(0, 115, 150));
+        quit.setPreferredSize(new Dimension(200,75));
+        quit.setBackground(new Color(0,115,150));
         gbc.gridy = 4;
         panel.add(quit, gbc);
 

@@ -1,5 +1,6 @@
 package mypackage;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.File;
@@ -22,10 +23,12 @@ public class ImageSelector {
     private ImageSelector(){
         frame = new JFrame("Default Image Selector");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1080, 600);
+        frame.setSize(1000, 1000);
+        frame.setLocationRelativeTo(null);
         windowOpen = true;
         panel = new JPanel();
         panel.setLayout(new GridLayout(0, 3, 5, 5));
+        panel.setBackground(new Color(169,221,214));
         selectedFile = null;
     }
 
