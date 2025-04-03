@@ -1,5 +1,7 @@
+package mypackage;
 import java.awt.image.BufferedImage;
 
+//Written by Landon Armstrong 
 public class Tile {
     private BufferedImage image;
     private int goalX, goalY;
