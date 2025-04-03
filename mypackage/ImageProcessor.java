@@ -139,7 +139,7 @@ public class ImageProcessor {
                 super.paintComponent(g);
                 int pieceWidth = imagePieces.get(0).get(0).getWidth();
                 int pieceHeight = imagePieces.get(0).get(0).getHeight();
-                setBackground(Color.GRAY);
+                setBackground(new Color(169,221,214));
 
                 for (int row = 0; row < imagePieces.size(); row++) {
                     for (int col = 0; col < imagePieces.get(row).size(); col++) {

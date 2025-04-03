@@ -22,6 +22,7 @@ public class Menu {
     private static JButton quit = new JButton("Quit");
 
     public static void initialize(){
+        //initialize the frame and place panel on it
         frame.setTitle("Picture This");
         frame.setSize(1000,1000);
         frame.setLocationRelativeTo(null);
@@ -29,7 +30,8 @@ public class Menu {
         frame.setVisible(true);
         frame.add(panel, BorderLayout.CENTER);
         panel.setBackground(new Color(169,221,214));
-        panel.setLayout(new GridBagLayout());       // creates a layout on the panel for the buttons. It is anchored to the center with 30px spaces between the buttons
+        panel.setLayout(new GridBagLayout());
+        // creates a layout on the panel for the buttons. It is anchored to the center with 30px spaces between the buttons
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.anchor = GridBagConstraints.CENTER;
