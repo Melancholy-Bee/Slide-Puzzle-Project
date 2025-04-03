@@ -20,7 +20,7 @@ public class ImageProcessor {
                 return null;
             }
     
-            // Ask for chop size
+            //  Ask for chop size
             String input = JOptionPane.showInputDialog("Enter chop size (2 to 6):");
             if (input == null) return null; // Cancelled input
     
@@ -48,28 +48,27 @@ public class ImageProcessor {
     public static BufferedImage resizeImage(BufferedImage image, int targetWidth, int targetHeight) {
         int currentWidth = image.getWidth();
         int currentHeight = image.getHeight();
-        BufferedImage resized = image;
-    
-        // Resize in multiple steps for better quality
-        while (currentWidth > targetWidth || currentHeight > targetHeight) {
-            currentWidth = Math.max(currentWidth / 2, targetWidth);
-            currentHeight = Math.max(currentHeight / 2, targetHeight);
-            
-            BufferedImage temp = new BufferedImage(currentWidth, currentHeight, BufferedImage.TYPE_INT_RGB);
-            Graphics2D g2d = temp.createGraphics();
-            
-            // Set high-quality rendering hints
-            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-    
-            // Draw the resized image
-            g2d.drawImage(resized, 0, 0, currentWidth, currentHeight, null);
-            g2d.dispose();
-            resized = temp;
+        
+        // If the image is already 600x600, return it as is
+        if (currentWidth == targetWidth && currentHeight == targetHeight) {
+            return image;
         }
+    
+        BufferedImage resized = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = resized.createGraphics();
+    
+        // Set high-quality rendering hints
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+    
+        // Resize image smoothly
+        g2d.drawImage(image, 0, 0, targetWidth, targetHeight, null);
+        g2d.dispose();
+    
         return resized;
     }
+    
 
     public static BufferedImage cropImageToFit(BufferedImage image, int n) {
         int width = image.getWidth();
@@ -182,8 +181,7 @@ public class ImageProcessor {
         for(int i = 0; i <= flatList.size(); i++){
             indexs.add(i);
         }
-        boolean solvable = false;
-        do{
+
         Random r = new Random();
         for (int i = flatList.size() - 1; i > 0; i--) {
             int j = r.nextInt(i + 1);
@@ -204,15 +202,12 @@ public class ImageProcessor {
                 }
             }
         }
-        
-        if(inversions % 2 == 0){
-            solvable = true;
-        }
-        else{
-            solvable = false;
-        }
 
-        } while(!solvable);
+        if(inversions % 2 != 0){
+            BufferedImage temp = flatList.get(0);
+            flatList.set(0, flatList.get(1));
+            flatList.set(1, temp); 
+        }
 
         int index = 0;
         for (int i = 0; i < imagePieces.size(); i++) {
