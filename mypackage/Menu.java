@@ -99,7 +99,7 @@ public class Menu {
         frame.setVisible(true);
     }
 
-    public static void imageHandling(){
+    public static void imageHandling(int n){
         File selectedFile = ImageSelector.getInstance().selectedFile;
 
         while(selectedFile == null) {
@@ -118,7 +118,7 @@ public class Menu {
         System.out.println("Image selected: " + selectedFile.getAbsolutePath());
     
         // Process the image (chop into pieces)
-        ArrayList<ArrayList<BufferedImage>> choppedImages = ImageProcessor.processImage(selectedFile);
+        ArrayList<ArrayList<BufferedImage>> choppedImages = ImageProcessor.processImage(selectedFile, n);
         if (choppedImages == null) {
             System.out.println("Image processing failed.");
             return;

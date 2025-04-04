@@ -28,7 +28,8 @@ public class ImageButton extends JButton {
         this.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 ImageSelector.getInstance().selectedFile = imageFile;
-                Menu.imageHandling();
+                DifficultyMenu.initialize(imageFile);
+                //Menu.imageHandling();
             }
          });
     }
