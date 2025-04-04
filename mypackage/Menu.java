@@ -27,7 +27,6 @@ public class Menu {
         frame.setSize(1000,1000);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
         frame.add(panel, BorderLayout.CENTER);
         panel.setBackground(new Color(169,221,214));
         panel.setLayout(new GridBagLayout());
@@ -97,7 +96,7 @@ public class Menu {
                 System.exit(0); // Closes the program
             }
         });
-
+        frame.setVisible(true);
     }
 
     public static void imageHandling(){

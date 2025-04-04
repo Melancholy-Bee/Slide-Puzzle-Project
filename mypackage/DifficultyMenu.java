@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 // Rebecca 
-Public class DifficultyMenu {
+public class DifficultyMenu {
     static JFrame frame = new JFrame();
     static JPanel panel = new JPanel();
     static JButton Easy = new JButton("Easy");//2x2
