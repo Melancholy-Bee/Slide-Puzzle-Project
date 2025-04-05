@@ -15,6 +15,7 @@ public class Board extends JPanel {
         this.gridSize = imageGrid.size();
         this.tileGrid = new ArrayList<>();
         setLayout(new GridBagLayout());
+        this.setBackground(new Color(169,221,214));
         initializeBoard(imageGrid);
     }
 
@@ -149,7 +150,7 @@ public class Board extends JPanel {
         frame.getContentPane().add(board);
         frame.pack();
 
-        frame.setSize(800, 800);
+        frame.setSize(1000, 1000);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }

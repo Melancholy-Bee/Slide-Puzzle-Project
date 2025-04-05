@@ -3,6 +3,10 @@ package mypackage;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.io.File;
 import java.util.*;
 import javax.swing.JPanel;
@@ -76,21 +80,36 @@ public class ImageSelector {
     }
 
     //adds imageButtons to the panel
-    private void addImages(ArrayList<ImageButton> imageButtons){
+    private void addImages(ArrayList<ImageButton> imageButtons, GridBagConstraints gbc){
             for (int i = 0; i < imageButtons.size(); i++) {
-                panel.add(imageButtons.get(i));
+                imageButtons.get(i).setFocusable(false);
+                imageButtons.get(i).setBackground(new Color(0,115,150));
+                panel.add(imageButtons.get(i), gbc);
+                gbc.gridy++;
             }
     }
 
     //refreshes images and buttons on the selection window
     private void refreshButtons(ArrayList<ImageButton> imageButtons){
         panel.removeAll();
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.insets = new Insets(30, 0, 30, 0);
+        gbc.fill = GridBagConstraints.NONE;
         frame.getContentPane().removeAll();
         frame.getContentPane().repaint();
-        addImages(imageButtons);
+
+        addImages(imageButtons, gbc);
         JButton upload = new JButton("Upload");
-        upload.setPreferredSize(new Dimension(300,300));
-        panel.add(upload);
+        upload.setFocusable(false);
+        upload.setPreferredSize(new Dimension(200,75));
+        upload.setFont(new Font("Dialog", Font.BOLD, 15));
+        upload.setBackground(new Color(0,115,150));
+        gbc.gridy = imageButtons.size()+1;
+        panel.add(upload, gbc);
 
         upload.addActionListener(new ActionListener() {
             @Override
