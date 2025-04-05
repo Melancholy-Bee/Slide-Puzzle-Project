@@ -123,9 +123,10 @@ public class Menu {
             System.out.println("Image processing failed.");
             return;
         }
+
+        //Make a Board
+        Board.show(choppedImages);
     
-        // Display the chopped images
-        ImageProcessor.displayChoppedImages(choppedImages);
 
     }
 }

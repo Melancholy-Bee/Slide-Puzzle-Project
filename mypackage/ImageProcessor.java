@@ -10,7 +10,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+//Written By Kason Adsit
+
 public class ImageProcessor {
+    public static ArrayList<ArrayList<Integer>> goal = new ArrayList<>();
+
     public static ArrayList<ArrayList<BufferedImage>> processImage(File imageFile, int n) {
         try {
             // Read the image from file
@@ -19,19 +23,6 @@ public class ImageProcessor {
                 JOptionPane.showMessageDialog(null, "Invalid image file.");
                 return null;
             }
-    
-            /*   Ask for chop size
-            String input = JOptionPane.showInputDialog("Enter chop size (2 to 6):");
-            if (input == null) return null; // Cancelled input
-    
-            int n;
-            try {
-                n = Integer.parseInt(input);
-                if (n < 2 || n > 6) throw new NumberFormatException();
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Invalid input. Enter a number between 2 and 6.");
-                return null;
-            }*/
     
             BufferedImage resizedImage = resizeImage(originalImage, 600, 600);
             BufferedImage croppedImage = cropImageToFit(resizedImage, n);
@@ -206,13 +197,31 @@ public class ImageProcessor {
             BufferedImage temp = flatList.get(0);
             flatList.set(0, flatList.get(1));
             flatList.set(1, temp); 
-        }
 
+            Integer tempNum = indexs.get(0);
+            indexs.set(0, indexs.get(1));
+            indexs.set(1, tempNum);
+        }
+        
         int index = 0;
         for (int i = 0; i < imagePieces.size(); i++) {
             for (int j = 0; j < imagePieces.get(i).size(); j++) {
                 imagePieces.get(i).set(j, flatList.get(index++));
             }
+        }
+
+        imagePieces.get(lastRow).add(null);
+        indexs.add(indexs.size());
+
+
+        int n = (int) Math.sqrt(indexs.size());
+
+        for (int i = 0; i < indexs.size(); i += n) {
+            ArrayList<Integer> row = new ArrayList<>();
+            for (int j = i; j < i + n && j < indexs.size(); j++) {
+                row.add(indexs.get(j));
+            }
+            goal.add(row);
         }
 
         return imagePieces;
