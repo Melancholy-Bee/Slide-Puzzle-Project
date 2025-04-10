@@ -20,6 +20,7 @@ public class DifficultyMenu {
     static JButton Hard = new JButton("Hard");//4x4
     static JButton ExtraHard = new JButton("Extra Hard");//5x5
     static JButton Extreme = new JButton("Extreme");//6x6
+    static JButton close = new JButton("x");// close button
     public static void initialize(File image){
         frame.setTitle("Difficulty Menu");
         frame.setSize(1000,1000);
@@ -36,6 +37,17 @@ public class DifficultyMenu {
         gbc.insets = new Insets(30, 0, 30, 0);
         gbc.fill = GridBagConstraints.NONE;
 
+        close.setFocusable((false));
+        close.setFont(new Font("Dialog",Font.PLAIN,10));
+        close.setPreferredSize(new Dimension(100,50));
+        close.setBackground(new Color(223,16,16));
+        close.addActionListener(new addActionListener(){
+             @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+            }
+        });
+
         //each button should have the same functonality but send a different value to the ProccessImage function
         // easy button
         Easy.setFocusable((false));
@@ -51,6 +63,7 @@ public class DifficultyMenu {
                 int level = 2;
                 Menu.imageHandling(level);
             }
+            frame.dispose();
         });
 
         //medium button
@@ -67,6 +80,7 @@ public class DifficultyMenu {
                 int level = 3;
                 Menu.imageHandling(level);
             }
+            frame.dispose();
         });
 
 
@@ -84,6 +98,7 @@ public class DifficultyMenu {
                 int level = 4;
                 Menu.imageHandling(level);
             }
+            frame.dispose();
         });
 
         //Extra Hard Button
@@ -100,6 +115,7 @@ public class DifficultyMenu {
                 int level = 5;
                 Menu.imageHandling(level);
             }
+            frame.dispose();
         });
 
 
@@ -117,6 +133,7 @@ public class DifficultyMenu {
                 int level = 6;
                 Menu.imageHandling(level);
             }
+            frame.dispose();
         });
 
 
