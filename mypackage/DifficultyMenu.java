@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.awt.Window;
 // Rebecca 
 public class DifficultyMenu {
     static JFrame frame = new JFrame();
@@ -44,6 +45,7 @@ public class DifficultyMenu {
         close.addActionListener(new addActionListener(){
              @Override
             public void actionPerformed(ActionEvent e) {
+                JFrame frame = (JFrame) SwingUtilities.getWindoAncestor(panel);
                 frame.dispose();
             }
         });
@@ -62,8 +64,9 @@ public class DifficultyMenu {
               //send difficulty selection to ProccessImage
                 int level = 2;
                 Menu.imageHandling(level);
+                JFrame frame = (JFrame) SwingUtilities.getWindoAncestor(panel);
+                 frame.dispose();
             }
-            frame.dispose();
         });
 
         //medium button
@@ -79,8 +82,9 @@ public class DifficultyMenu {
                 //send difficulty selection to ProccessImage
                 int level = 3;
                 Menu.imageHandling(level);
+JFrame frame = (JFrame) SwingUtilities.getWindoAncestor(panel);
+                 frame.dispose();
             }
-            frame.dispose();
         });
 
 
@@ -97,8 +101,9 @@ public class DifficultyMenu {
                 //send difficulty selection to ProccessImage
                 int level = 4;
                 Menu.imageHandling(level);
+                JFrame frame = (JFrame) SwingUtilities.getWindoAncestor(panel);
+                 frame.dispose();
             }
-            frame.dispose();
         });
 
         //Extra Hard Button
@@ -114,8 +119,9 @@ public class DifficultyMenu {
               //send difficulty selection to ProccessImage
                 int level = 5;
                 Menu.imageHandling(level);
+                JFrame frame = (JFrame) SwingUtilities.getWindoAncestor(panel);
+                 frame.dispose();
             }
-            frame.dispose();
         });
 
 
@@ -132,8 +138,9 @@ public class DifficultyMenu {
                 //send difficulty selection to ProccessImage
                 int level = 6;
                 Menu.imageHandling(level);
+                JFrame frame = (JFrame) SwingUtilities.getWindoAncestor(panel);
+                 frame.dispose();
             }
-            frame.dispose();
         });
 
 
