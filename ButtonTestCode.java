@@ -8,7 +8,7 @@ import mypackage.Menu;
 
 class ButtonTestCode {
     public static void main(String args[]){
-        //DatabaseInitializer.initializeDatabase();
+        mypackage.DatabaseInitializer.initializeDatabase();
         Menu.initialize();
     }
 }
