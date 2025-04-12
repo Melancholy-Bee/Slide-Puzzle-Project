@@ -42,7 +42,7 @@ public class DifficultyMenu {
         close.setFont(new Font("Dialog",Font.PLAIN,10));
         close.setPreferredSize(new Dimension(100,50));
         close.setBackground(new Color(223,16,16));
-        close.addActionListener(new addActionListener(){
+        close.addActionListener(new ActionListener(){
              @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
