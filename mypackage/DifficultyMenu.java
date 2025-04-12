@@ -45,8 +45,7 @@ public class DifficultyMenu {
         close.addActionListener(new addActionListener(){
              @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame frame = (JFrame) SwingUtilities.getWindoAncestor(panel);
-                frame.dispose();
+                frame.setVisible(false);
             }
         });
 
@@ -64,8 +63,7 @@ public class DifficultyMenu {
               //send difficulty selection to ProccessImage
                 int level = 2;
                 Menu.imageHandling(level);
-                JFrame frame = (JFrame) SwingUtilities.getWindoAncestor(panel);
-                 frame.dispose();
+                frame.setVisible(false);
             }
         });
 
@@ -82,8 +80,7 @@ public class DifficultyMenu {
                 //send difficulty selection to ProccessImage
                 int level = 3;
                 Menu.imageHandling(level);
-JFrame frame = (JFrame) SwingUtilities.getWindoAncestor(panel);
-                 frame.dispose();
+                frame.setVisible(false);
             }
         });
 
@@ -101,8 +98,7 @@ JFrame frame = (JFrame) SwingUtilities.getWindoAncestor(panel);
                 //send difficulty selection to ProccessImage
                 int level = 4;
                 Menu.imageHandling(level);
-                JFrame frame = (JFrame) SwingUtilities.getWindoAncestor(panel);
-                 frame.dispose();
+                frame.setVisible(false);
             }
         });
 
@@ -119,8 +115,7 @@ JFrame frame = (JFrame) SwingUtilities.getWindoAncestor(panel);
               //send difficulty selection to ProccessImage
                 int level = 5;
                 Menu.imageHandling(level);
-                JFrame frame = (JFrame) SwingUtilities.getWindoAncestor(panel);
-                 frame.dispose();
+                frame.setVisible(false);
             }
         });
 
@@ -138,8 +133,7 @@ JFrame frame = (JFrame) SwingUtilities.getWindoAncestor(panel);
                 //send difficulty selection to ProccessImage
                 int level = 6;
                 Menu.imageHandling(level);
-                JFrame frame = (JFrame) SwingUtilities.getWindoAncestor(panel);
-                 frame.dispose();
+                frame.setVisible(false);
             }
         });
 
