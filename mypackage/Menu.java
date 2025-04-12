@@ -64,6 +64,7 @@ public class Menu {
                     System.err.println("Error: " + er.getMessage());
                     er.printStackTrace(); // Optional: useful for debugging
                 }
+                frame.setVisible(false);
             }
         });
 
