@@ -120,6 +120,7 @@ public class ImageSelector {
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
+                frame.setVisible(false);
             }
         });
 

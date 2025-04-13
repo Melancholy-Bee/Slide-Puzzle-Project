@@ -29,6 +29,10 @@ public class ImageButton extends JButton {
             public void actionPerformed(ActionEvent e) {
                 ImageSelector.getInstance().selectedFile = imageFile;
                 DifficultyMenu.initialize(imageFile);
+                java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(ImageButton.this);
+                if (window != null) {
+                    window.setVisible(false);
+                }
                 //Menu.imageHandling();
             }
          });
