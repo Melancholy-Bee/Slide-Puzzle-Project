@@ -5,11 +5,16 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 
 public class Board extends JPanel {
     private ArrayList<ArrayList<Tile>> tileGrid;
     private int gridSize;
     private Tile emptyTile;
+
+    private static JButton settings = new JButton("Settings");
 
     public Board(ArrayList<ArrayList<BufferedImage>> imageGrid) {
         this.gridSize = imageGrid.size();
@@ -142,16 +147,43 @@ public class Board extends JPanel {
         return true;
     }
 
-    // Add this static method to make the board display itself in a JFrame
+
+
+    //modifyed to allow for more buttons
     public static void show(ArrayList<ArrayList<BufferedImage>> imageGrid) {
         JFrame frame = new JFrame("Sliding Puzzle");
         Board board = new Board(imageGrid);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(board);
+        frame.setLayout(new BorderLayout());
+    
+        frame.add(board, BorderLayout.CENTER); // Add board to center
+    
+        // Settings button
+        settings.setFocusable(false);
+        settings.setFont(new Font("Dialog", Font.BOLD, 15));
+        settings.setPreferredSize(new Dimension(200, 75));
+        settings.setBackground(new Color(0, 115, 150));
+    
+        settings.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SettingsMenu.initialize(frame);
+            }
+        });
+    
+        // button in box centered at the bottom
+        Box bottomBox = Box.createHorizontalBox();
+        bottomBox.add(Box.createHorizontalGlue());
+        bottomBox.add(settings);
+        bottomBox.add(Box.createHorizontalGlue());
+    
+        frame.add(bottomBox, BorderLayout.SOUTH);
+    
+        // Finalize frame
         frame.pack();
-
         frame.setSize(1000, 1000);
-        frame.setLocationRelativeTo(null);
+        frame.setLocationRelativeTo(null); // center on screen
         frame.setVisible(true);
     }
+
 }

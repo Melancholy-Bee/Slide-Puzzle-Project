@@ -12,7 +12,7 @@ public class SettingsMenu {
     private static JButton emptyButton2 = new JButton("Background Color");
     private static JButton defaultSizeButton = new JButton("Default Size");
     private static JButton fitScreenButton = new JButton("Fit to Screen");
-    private static JButton returnButton = new JButton("Return to Main Menu");
+    private static JButton returnButton = new JButton("Return to Menu");
 
     public static void initialize(JFrame mainFrame) {
         settingsFrame.setSize(500, 500);
@@ -62,6 +62,7 @@ public class SettingsMenu {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.setSize(1000, 1000);
+                mainFrame.setLocationRelativeTo(null);
             }
         });
 
