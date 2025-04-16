@@ -83,7 +83,7 @@ public class Menu {
             }
         });
 
-        //quit button sylas
+        //quit button sylas 
         quit.setFocusable((false));
         quit.setFont(new Font("Dialog", Font.BOLD, 15));
         quit.setPreferredSize(new Dimension(200,75));

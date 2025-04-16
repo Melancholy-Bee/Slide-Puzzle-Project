@@ -83,7 +83,7 @@ public class Board extends JPanel {
                 swapTiles(tile, emptyTile);
                 refreshBoard();
                 if (checkWin()) {
-                    JOptionPane.showMessageDialog(this, "Puzzle Solved!");
+                    WinMenu.initialize();
                 }
             }
         });
