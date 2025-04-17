@@ -1,13 +1,14 @@
 package mypackage;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-//Written by Landon Armstrong 
-public class Tile {
+//Written by Landon Armstrong
+public class Tile implements Serializable{
     private BufferedImage image;
     private int goalX, goalY;
     private int posX, posY;
 
-    Tile(BufferedImage img, int x, int y){
+    public Tile(BufferedImage img, int x, int y){
         image = img;
         goalX = x;
         goalY = y;
@@ -65,7 +66,7 @@ public class Tile {
             tempTile.setPosY(posY);
             posX = tempX;
             posY = tempY;
-            }
+        }
     }
 
     //returns true if the tile is in the correct position, else returns false
