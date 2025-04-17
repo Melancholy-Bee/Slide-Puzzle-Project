@@ -157,6 +157,8 @@ public class ImageProcessor {
     public static ArrayList<ArrayList<BufferedImage>> randomize(ArrayList<ArrayList<BufferedImage>> imagePieces){
         if (imagePieces.isEmpty()) return imagePieces;
 
+        goal.clear();
+
         int lastRow = imagePieces.size() - 1;
         int lastCol = imagePieces.get(lastRow).size() - 1;
 
