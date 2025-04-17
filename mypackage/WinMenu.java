@@ -43,13 +43,14 @@ public class WinMenu {
             public void actionPerformed(ActionEvent e) {
                 try {
                     //call ImageSelector to bring up image options
+                    System.out.println("Image Selector called");
                     ImageSelector.getInstance().selectGameImage();
 
                 } catch (Exception er) {
                     System.err.println("Error: " + er.getMessage());
                     er.printStackTrace(); // Optional: useful for debugging
                 }
-                frame.setVisible(false);
+                frame.dispose();
             }
         });
 

@@ -50,6 +50,7 @@ public class ImageSelector {
         
         ArrayList<ImageButton> imageButtons = getImageButtons();
         refreshButtons(imageButtons);
+        System.out.println("Image Buttons Made");
     }
 
     //gets a list of the image files
@@ -120,7 +121,7 @@ public class ImageSelector {
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
-                frame.setVisible(false);
+                frame.dispose();
             }
         });
 

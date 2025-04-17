@@ -22,6 +22,25 @@ public class DifficultyMenu {
     static JButton ExtraHard = new JButton("Extra Hard");//5x5
     static JButton Extreme = new JButton("Extreme");//6x6
     static JButton close = new JButton("x");// close button
+
+    public static void removeAllDifficultyListeners() {
+        for (ActionListener al : Easy.getActionListeners()) {
+            Easy.removeActionListener(al);
+        }
+        for (ActionListener al : Medium.getActionListeners()) {
+            Medium.removeActionListener(al);
+        }
+        for (ActionListener al : Hard.getActionListeners()) {
+            Hard.removeActionListener(al);
+        }
+        for (ActionListener al : ExtraHard.getActionListeners()) {
+            ExtraHard.removeActionListener(al);
+        }
+        for (ActionListener al : Extreme.getActionListeners()) {
+            Extreme.removeActionListener(al);
+        }
+    }
+    
     public static void initialize(File image){
         frame.setTitle("Difficulty Menu");
         frame.setSize(1000,1000);
@@ -45,97 +64,105 @@ public class DifficultyMenu {
         close.addActionListener(new ActionListener(){
              @Override
             public void actionPerformed(ActionEvent e) {
-                frame.setVisible(false);
+                frame.dispose();
             }
         });
 
         //each button should have the same functonality but send a different value to the ProccessImage function
-        // easy button
-        Easy.setFocusable((false));
-        Easy.setFont(new Font("Dialog", Font.PLAIN, 15));
-        Easy.setPreferredSize(new Dimension(200,75));
-        Easy.setBackground(new Color(0,115,150));
-        gbc.gridy = 1;
-        panel.add(Easy, gbc);
-        Easy.addActionListener(new ActionListener(){
+        // EASY button
+        ActionListener easyListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              //send difficulty selection to ProccessImage
                 int level = 2;
                 Menu.imageHandling(level);
-                frame.setVisible(false);
+                System.out.println("Image Handling Called");
+                removeAllDifficultyListeners();
+                frame.dispose();
             }
-        });
+        };
+        Easy.setFocusable(false);
+        Easy.setFont(new Font("Dialog", Font.PLAIN, 15));
+        Easy.setPreferredSize(new Dimension(200, 75));
+        Easy.setBackground(new Color(0, 115, 150));
+        gbc.gridy = 1;
+        panel.add(Easy, gbc);
+        Easy.addActionListener(easyListener);
 
-        //medium button
-        Medium.setFocusable((false));
-        Medium.setFont(new Font("Dialog", Font.PLAIN, 15));
-        Medium.setPreferredSize(new Dimension(200,75));
-        Medium.setBackground(new Color(0,115,150));
-        gbc.gridy = 2;
-        panel.add(Medium, gbc);
-        Medium.addActionListener(new ActionListener(){
+        // MEDIUM button
+        ActionListener mediumListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //send difficulty selection to ProccessImage
                 int level = 3;
                 Menu.imageHandling(level);
-                frame.setVisible(false);
+                System.out.println("Image Handling Called");
+                removeAllDifficultyListeners();
+                frame.dispose();
             }
-        });
+        };
+        Medium.setFocusable(false);
+        Medium.setFont(new Font("Dialog", Font.PLAIN, 15));
+        Medium.setPreferredSize(new Dimension(200, 75));
+        Medium.setBackground(new Color(0, 115, 150));
+        gbc.gridy = 2;
+        panel.add(Medium, gbc);
+        Medium.addActionListener(mediumListener);
 
-
-        //Hard Button
-        Hard.setFocusable((false));
-        Hard.setFont(new Font("Dialog", Font.PLAIN, 15));
-        Hard.setPreferredSize(new Dimension(200,75));
-        Hard.setBackground(new Color(0,115,150));
-        gbc.gridy = 3;
-        panel.add(Hard, gbc);
-        Hard.addActionListener(new ActionListener(){
+        // HARD button
+        ActionListener hardListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //send difficulty selection to ProccessImage
                 int level = 4;
                 Menu.imageHandling(level);
-                frame.setVisible(false);
+                System.out.println("Image Handling Called");
+                removeAllDifficultyListeners();
+                frame.dispose();
             }
-        });
+        };
+        Hard.setFocusable(false);
+        Hard.setFont(new Font("Dialog", Font.PLAIN, 15));
+        Hard.setPreferredSize(new Dimension(200, 75));
+        Hard.setBackground(new Color(0, 115, 150));
+        gbc.gridy = 3;
+        panel.add(Hard, gbc);
+        Hard.addActionListener(hardListener);
 
-        //Extra Hard Button
-        ExtraHard.setFocusable((false));
-        ExtraHard.setFont(new Font("Dialog", Font.PLAIN, 15));
-        ExtraHard.setPreferredSize(new Dimension(200,75));
-        ExtraHard.setBackground(new Color(0,115,150));
-        gbc.gridy = 4;
-        panel.add(ExtraHard, gbc);
-        ExtraHard.addActionListener(new ActionListener(){
+        // EXTRA HARD button
+        ActionListener extraHardListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              //send difficulty selection to ProccessImage
                 int level = 5;
                 Menu.imageHandling(level);
-                frame.setVisible(false);
+                System.out.println("Image Handling Called");
+                removeAllDifficultyListeners();
+                frame.dispose();
             }
-        });
+        };
+        ExtraHard.setFocusable(false);
+        ExtraHard.setFont(new Font("Dialog", Font.PLAIN, 15));
+        ExtraHard.setPreferredSize(new Dimension(200, 75));
+        ExtraHard.setBackground(new Color(0, 115, 150));
+        gbc.gridy = 4;
+        panel.add(ExtraHard, gbc);
+        ExtraHard.addActionListener(extraHardListener);
 
-
-        //Extreme Button
-        Extreme.setFocusable((false));
-        Extreme.setFont(new Font("Dialog", Font.PLAIN, 15));
-        Extreme.setPreferredSize(new Dimension(200,75));
-        Extreme.setBackground(new Color(0,115,150));
-        gbc.gridy = 5;
-        panel.add(Extreme, gbc);
-        Extreme.addActionListener(new ActionListener(){
+        // EXTREME button
+        ActionListener extremeListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //send difficulty selection to ProccessImage
                 int level = 6;
                 Menu.imageHandling(level);
-                frame.setVisible(false);
+                System.out.println("Image Handling Called");
+                removeAllDifficultyListeners();
+                frame.dispose();
             }
-        });
+        };
+        Extreme.setFocusable(false);
+        Extreme.setFont(new Font("Dialog", Font.PLAIN, 15));
+        Extreme.setPreferredSize(new Dimension(200, 75));
+        Extreme.setBackground(new Color(0, 115, 150));
+        gbc.gridy = 5;
+        panel.add(Extreme, gbc);
+        Extreme.addActionListener(extremeListener);
 
 
     }

@@ -84,6 +84,10 @@ public class Board extends JPanel {
                 refreshBoard();
                 if (checkWin()) {
                     WinMenu.initialize();
+                    java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(Board.this);
+                    if (window != null) {
+                        window.dispose();
+                    }
                 }
             }
         });
