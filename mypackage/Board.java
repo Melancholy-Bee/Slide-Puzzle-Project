@@ -13,6 +13,7 @@ public class Board extends JPanel {
     private ArrayList<ArrayList<Tile>> tileGrid;
     private int gridSize;
     private Tile emptyTile;
+    private ArrayList<ArrayList<BufferedImage>> originalImageGrid;
 
     private static JButton settings = new JButton("Settings");
     private static JButton reset = new JButton("Reset");
@@ -23,6 +24,7 @@ public class Board extends JPanel {
     public Board(ArrayList<ArrayList<BufferedImage>> imageGrid) {
         this.gridSize = imageGrid.size();
         this.tileGrid = new ArrayList<>();
+        this.originalImageGrid = imageGrid;
         setLayout(new GridBagLayout());
         this.setBackground(new Color(169,221,214));
         initializeBoard(imageGrid);
@@ -191,15 +193,23 @@ public class Board extends JPanel {
         //});
         
         //reset button rebecca
+        JButton reset = new JButton("Reset");
         reset.setFocusable(false);
         reset.setFont(new Font("Dialog", Font.BOLD, 15));
         reset.setPreferredSize(new Dimension(200, 75));
         reset.setBackground(new Color(0, 115, 150));
-    
-        //reset.addActionListener(new ActionListener() {
-         //   @Override
-            
-        //});
+
+        reset.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    frame.dispose(); // Dispose old frame
+                    Board.show(board.originalImageGrid); // Start fresh
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
 
         //load button rebecca
         load.setFocusable(false);
@@ -238,13 +248,13 @@ public class Board extends JPanel {
         Box bottomBox = Box.createVerticalBox();
         bottomBox.add(Box.createVerticalGlue());
         bottomBox.add(settings);
-        bottonBox.add(save);
+        bottomBox.add(save);
         bottomBox.add(load);
         bottomBox.add(newGame);
         bottomBox.add(reset);
         bottomBox.add(Box.createVerticalGlue());
     
-        frame.add(bottomBox, BorderLayout.East);
+        frame.add(bottomBox, BorderLayout.EAST);
     
         // Finalize frame
         frame.pack();
