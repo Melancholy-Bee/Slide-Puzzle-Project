@@ -14,6 +14,10 @@ public class Board extends JPanel {
     private int gridSize;
     private Tile emptyTile;
     private ArrayList<ArrayList<BufferedImage>> originalImageGrid;
+    private int moveCount = 0;
+    private JLabel moveCounterLabel;
+    private JPanel boardPanel;
+
 
     private static JButton settings = new JButton("Settings");
     private static JButton reset = new JButton("Reset");
@@ -87,6 +91,8 @@ public class Board extends JPanel {
         button.addActionListener(e -> {
             if (tile.validMove(emptyTile)) {
                 swapTiles(tile, emptyTile);
+                moveCount++;
+                moveCounterLabel.setText("Moves: " + moveCount);
                 refreshBoard();
                 if (checkWin()) {
                     WinMenu.initialize();
@@ -203,6 +209,8 @@ public class Board extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    board.moveCount = 0;
+                    board.moveCounterLabel.setText("Moves: 0");
                     frame.dispose(); // Dispose old frame
                     Board.show(board.originalImageGrid); // Start fresh
                 } catch (Exception e1) {
@@ -255,6 +263,11 @@ public class Board extends JPanel {
         bottomBox.add(Box.createVerticalGlue());
     
         frame.add(bottomBox, BorderLayout.EAST);
+
+        board.moveCounterLabel = new JLabel("Moves: 0");
+        board.moveCounterLabel.setFont(new Font("Dialog", Font.BOLD, 16));
+        board.moveCounterLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        frame.add(board.moveCounterLabel, BorderLayout.NORTH); // or BorderLayout.SOUTH
     
         // Finalize frame
         frame.pack();
