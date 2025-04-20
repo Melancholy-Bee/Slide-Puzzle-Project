@@ -15,6 +15,10 @@ public class Board extends JPanel {
     private Tile emptyTile;
 
     private static JButton settings = new JButton("Settings");
+    private static JButton reset = new JButton("Reset");
+    private static JButton newGame = new JButton("New Game");
+    private static JButton load = new JButton("Load");
+    private static JButton save = new JButton("Save");
 
     public Board(ArrayList<ArrayList<BufferedImage>> imageGrid) {
         this.gridSize = imageGrid.size();
@@ -174,14 +178,73 @@ public class Board extends JPanel {
                 SettingsMenu.initialize(frame);
             }
         });
+
+        //save button rebecca
+        save.setFocusable(false);
+        save.setFont(new Font("Dialog", Font.BOLD, 15));
+        save.setPreferredSize(new Dimension(200, 75));
+        save.setBackground(new Color(0, 115, 150));
+    
+        //save.addActionListener(new ActionListener() {
+          //  @Override
+            
+        //});
+        
+        //reset button rebecca
+        reset.setFocusable(false);
+        reset.setFont(new Font("Dialog", Font.BOLD, 15));
+        reset.setPreferredSize(new Dimension(200, 75));
+        reset.setBackground(new Color(0, 115, 150));
+    
+        //reset.addActionListener(new ActionListener() {
+         //   @Override
+            
+        //});
+
+        //load button rebecca
+        load.setFocusable(false);
+        load.setFont(new Font("Dialog", Font.BOLD, 15));
+        load.setPreferredSize(new Dimension(200, 75));
+        load.setBackground(new Color(0, 115, 150));
+    
+        //load.addActionListener(new ActionListener() {
+          //  @Override
+            
+       // });
+
+        //new game copied from main and edited 
+        newGame.setFocusable(false);
+        newGame.setFont(new Font("Dialog", Font.BOLD, 15));
+        newGame.setPreferredSize(new Dimension(200, 75));
+        newGame.setBackground(new Color(0, 115, 150));
+    
+        newGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    //call ImageSelector to bring up image options
+                    ImageSelector.getInstance().selectGameImage();
+
+                } catch (Exception er) {
+                    System.err.println("Error: " + er.getMessage());
+                    er.printStackTrace(); // Optional: useful for debugging
+                }
+                frame.setVisible(false);
+            }
+        });
+
     
         // button in box centered at the bottom
-        Box bottomBox = Box.createHorizontalBox();
-        bottomBox.add(Box.createHorizontalGlue());
+        Box bottomBox = Box.createVerticalBox();
+        bottomBox.add(Box.createVerticalGlue());
         bottomBox.add(settings);
-        bottomBox.add(Box.createHorizontalGlue());
+        bottonBox.add(save);
+        bottomBox.add(load);
+        bottomBox.add(newGame);
+        bottomBox.add(reset);
+        bottomBox.add(Box.createVerticalGlue());
     
-        frame.add(bottomBox, BorderLayout.SOUTH);
+        frame.add(bottomBox, BorderLayout.East);
     
         // Finalize frame
         frame.pack();
