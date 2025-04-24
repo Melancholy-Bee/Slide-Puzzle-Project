@@ -20,11 +20,16 @@ public class Menu {
     private static JButton load = new JButton ("Load Current Game");
     private static JButton settings = new JButton("Settings");
     private static JButton quit = new JButton("Quit");
+    private static BufferedImage winBufferedImage;
 
     public static void initialize(){
         //initialize the frame and place panel on it
         frame.setTitle("Picture This");
-        frame.setSize(1000,1000);
+        // Get screen dimensions
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = (int) (screenSize.width * 0.9); // 90% of screen width
+        int height = (int) (screenSize.height * 0.9); // 90% of screen height
+        frame.setSize(width, height);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel, BorderLayout.CENTER);
@@ -112,6 +117,8 @@ public class Menu {
         
         try {
             ImageService.saveImage(selectedFile);
+            winBufferedImage = null;
+            winBufferedImage = ImageIO.read(selectedFile);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -129,5 +136,9 @@ public class Menu {
         Board.show(choppedImages);
     
 
+    }
+
+    public static BufferedImage getWinImage() {
+        return winBufferedImage;
     }
 }

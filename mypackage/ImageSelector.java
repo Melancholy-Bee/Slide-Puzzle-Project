@@ -16,6 +16,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 //Written by Landon
 public class ImageSelector {
@@ -27,7 +29,11 @@ public class ImageSelector {
     private ImageSelector(){
         frame = new JFrame("Default Image Selector");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1000, 1000);
+        // Get screen dimensions
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = (int) (screenSize.width * 0.9); // 90% of screen width
+        int height = (int) (screenSize.height * 0.9); // 90% of screen height
+        frame.setSize(width, height);
         frame.setLocationRelativeTo(null);
         windowOpen = true;
         panel = new JPanel();
