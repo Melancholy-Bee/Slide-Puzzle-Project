@@ -1,14 +1,14 @@
 package mypackage;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
+import javax.swing.JButton;
 
 //Written by Landon Armstrong
 public class Tile implements Serializable{
     private BufferedImage image;
     private int goalX, goalY;
     private int posX, posY;
-    private double visualX;
-    private double visualY;
+    private JButton respectiveButton;
 
     public Tile(BufferedImage img, int x, int y){
         image = img;
@@ -38,6 +38,13 @@ public class Tile implements Serializable{
         this.posY = posY;
     }
     
+    public void setButton(JButton button){
+        respectiveButton = button;
+    }
+
+    public JButton getButton(){
+        return respectiveButton;
+    }
 
     //checks if tile is empty
     public boolean getIsEmpty(){
@@ -74,23 +81,5 @@ public class Tile implements Serializable{
     //returns true if the tile is in the correct position, else returns false
     public boolean correct(){
         return ((posX == goalX) && (posY == goalY));
-    }
-
-    //new methods
-
-    public double getVisualX() {
-        return visualX;
-    }
-
-    public void setVisualX(double visualX) {
-        this.visualX = visualX;
-    }
-
-    public double getVisualY() {
-        return visualY;
-    }
-
-    public void setVisualY(double visualY) {
-        this.visualY = visualY;
     }
 }
