@@ -103,13 +103,6 @@ public class Board extends JPanel {
                 moveCount++;
                 moveCounterLabel.setText("Moves: " + moveCount);
                 refreshBoard();
-                if (checkWin()) {
-                    WinMenu.initialize();
-                    java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(Board.this);
-                    if (window != null) {
-                        window.dispose();
-                    }
-                }
             }
         });
         tile.setButton(button);
@@ -225,6 +218,13 @@ public class Board extends JPanel {
         // Revalidate and repaint to update the UI
         revalidate();
         repaint();
+        if (checkWin()) {
+            WinMenu.initialize();
+            java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(Board.this);
+            if (window != null) {
+                window.dispose();
+            }
+        }
     }
 
     private boolean checkWin() {
