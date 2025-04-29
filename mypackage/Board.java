@@ -253,6 +253,7 @@ public class Board extends JPanel {
         settings.setFocusable(false);
         settings.setFont(new Font("Dialog", Font.BOLD, 15));
         settings.setPreferredSize(new Dimension(200, 75));
+        settings.setMaximumSize(new Dimension(250,80));
         settings.setBackground(new Color(0, 115, 150));
     
         settings.addActionListener(new ActionListener() {
@@ -266,6 +267,7 @@ public class Board extends JPanel {
         save.setFocusable(false);
         save.setFont(new Font("Dialog", Font.BOLD, 15));
         save.setPreferredSize(new Dimension(200, 75));
+        save.setMaximumSize(new Dimension(250,80));
         save.setBackground(new Color(0, 115, 150));
     
         //save.addActionListener(new ActionListener() {
@@ -278,6 +280,7 @@ public class Board extends JPanel {
         reset.setFocusable(false);
         reset.setFont(new Font("Dialog", Font.BOLD, 15));
         reset.setPreferredSize(new Dimension(200, 75));
+        reset.setMaximumSize(new Dimension(250,80));
         reset.setBackground(new Color(0, 115, 150));
 
         reset.addActionListener(new ActionListener() {
@@ -298,6 +301,7 @@ public class Board extends JPanel {
         load.setFocusable(false);
         load.setFont(new Font("Dialog", Font.BOLD, 15));
         load.setPreferredSize(new Dimension(200, 75));
+        load.setMaximumSize(new Dimension(250,80));
         load.setBackground(new Color(0, 115, 150));
     
         //load.addActionListener(new ActionListener() {
@@ -309,6 +313,7 @@ public class Board extends JPanel {
         newGame.setFocusable(false);
         newGame.setFont(new Font("Dialog", Font.BOLD, 15));
         newGame.setPreferredSize(new Dimension(200, 75));
+        newGame.setMaximumSize(new Dimension(250,80));
         newGame.setBackground(new Color(0, 115, 150));
     
         newGame.addActionListener(new ActionListener() {
