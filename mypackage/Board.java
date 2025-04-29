@@ -130,6 +130,9 @@ public class Board extends JPanel {
     }
 
     private void animateTile(Tile clicked){
+        if (animatingTimer != null && animatingTimer.isRunning()) {
+            animatingTimer.stop();
+        }
         animatingImg = clicked.getImage();
         animatingTimer = new Timer(20, new ActionListener() {
             @Override
@@ -192,6 +195,8 @@ public class Board extends JPanel {
         }
     }
 
+    /* 
+
     private void refreshBoard() {
         // Clear the current board
         removeAll();
@@ -218,6 +223,49 @@ public class Board extends JPanel {
         // Revalidate and repaint to update the UI
         revalidate();
         repaint();
+        if (checkWin()) {
+            WinMenu.initialize();
+            java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(Board.this);
+            if (window != null) {
+                window.dispose();
+            }
+        }
+    }
+*/
+
+    private void refreshBoard() {
+        // Clean up old buttons (remove listeners to avoid memory leaks)
+        for (ArrayList<Tile> row : tileGrid) {
+            for (Tile tile : row) {
+                JButton btn = tile.getButton();
+                for (ActionListener al : btn.getActionListeners()) {
+                    btn.removeActionListener(al);
+                }
+            }
+        }
+
+        // Now remove all components
+        removeAll();
+
+        // Re-add the tiles to the panel with the updated positions
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.insets = new Insets(0, 0, 0, 0);
+        gbc.fill = GridBagConstraints.NONE;
+
+        for (int row = 0; row < gridSize; row++) {
+            for (int col = 0; col < gridSize; col++) {
+                Tile tile = tileGrid.get(row).get(col);
+                JButton button = makeTileButton(tile);
+                gbc.gridx = col;
+                gbc.gridy = row;
+                add(button, gbc);
+            }
+        }
+
+        revalidate();
+        repaint();
+
         if (checkWin()) {
             WinMenu.initialize();
             java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(Board.this);
