@@ -134,7 +134,7 @@ public class Board extends JPanel {
             animatingTimer.stop();
         }
         animatingImg = clicked.getImage();
-        animatingTimer = new Timer(20, new ActionListener() {
+        animatingTimer = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
                 //change image position and repaint
