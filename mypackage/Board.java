@@ -74,6 +74,13 @@ public class Board extends JPanel {
             }
             tileGrid.add(rowTiles);
         }
+        if(checkWin()){
+            java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(Board.this);
+            if (window != null) {
+                window.dispose();
+            }
+            Menu.imageHandling(Menu.size);
+        }
     }
 
     private JButton makeTileButton(Tile tile) {
@@ -364,12 +371,6 @@ public class Board extends JPanel {
         frame.setSize(screenWidth, screenHeight);
         frame.setLocationRelativeTo(null); // Center on screen
         frame.setVisible(true);
-    
-        /*  Finalize frame
-        frame.pack();
-        frame.setSize(1000, 1000);
-        frame.setLocationRelativeTo(null); // center on screen
-        frame.setVisible(true); */
     }
 
 }

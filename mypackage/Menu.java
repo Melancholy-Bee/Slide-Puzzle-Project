@@ -21,6 +21,7 @@ public class Menu {
     private static JButton settings = new JButton("Settings");
     private static JButton quit = new JButton("Quit");
     private static BufferedImage winBufferedImage;
+    public static int size;
 
     public static void initialize(){
         //initialize the frame and place panel on it
@@ -106,6 +107,7 @@ public class Menu {
     }
 
     public static void imageHandling(int n){
+        size = n;
         File selectedFile = ImageSelector.getInstance().selectedFile;
 
         while(selectedFile == null) {
