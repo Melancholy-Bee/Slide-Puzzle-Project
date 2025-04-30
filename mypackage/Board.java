@@ -14,7 +14,7 @@ public class Board extends JPanel {
     private int gridSize;
     private Tile emptyTile;
     private ArrayList<ArrayList<BufferedImage>> originalImageGrid;
-    private int moveCount = 0;
+    private long moveCount = 0;
     private JLabel moveCounterLabel;
     private JPanel boardPanel;
     private static int screenWidth, screenHeight;
@@ -195,44 +195,6 @@ public class Board extends JPanel {
         }
     }
 
-    /* 
-
-    private void refreshBoard() {
-        // Clear the current board
-        removeAll();
-    
-        // Re-add the tiles to the panel with the updated positions
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, 0, 0, 0); // No padding around the tiles
-        gbc.fill = GridBagConstraints.NONE; // No resizing of buttons
-    
-        // Iterate through the grid and re-add buttons
-        for (int row = 0; row < gridSize; row++) {
-            for (int col = 0; col < gridSize; col++) {
-                Tile tile = tileGrid.get(row).get(col);
-                JButton button = makeTileButton(tile);
-                
-                // Update position based on the tile's position in the grid
-                gbc.gridx = col;
-                gbc.gridy = row;
-                add(button, gbc);
-            }
-        }
-    
-        // Revalidate and repaint to update the UI
-        revalidate();
-        repaint();
-        if (checkWin()) {
-            WinMenu.initialize();
-            java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(Board.this);
-            if (window != null) {
-                window.dispose();
-            }
-        }
-    }
-*/
-
     private void refreshBoard() {
         // Clean up old buttons (remove listeners to avoid memory leaks)
         for (ArrayList<Tile> row : tileGrid) {
@@ -267,7 +229,7 @@ public class Board extends JPanel {
         repaint();
 
         if (checkWin()) {
-            WinMenu.initialize();
+            WinMenu.initialize(moveCount);
             java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(Board.this);
             if (window != null) {
                 window.dispose();

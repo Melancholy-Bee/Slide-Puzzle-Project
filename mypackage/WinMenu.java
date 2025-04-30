@@ -98,15 +98,35 @@ public class WinMenu {
     private static JPanel mainPanel = new JPanel(new BorderLayout());
     private static JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
     private static BufferedImage winImage;
-    private static JLabel winLabel = new JLabel("You Win!", SwingConstants.CENTER); // Create the label
+    private static JLabel winLabel; //= new JLabel("You Win!", SwingConstants.CENTER); // Create the label
     private static Font winFont = new Font("Arial", Font.BOLD, 36); // Style the label
 
 
     private static JButton restart = new JButton("Restart");
     private static JButton newGameButton = new JButton("New Game");
+    private static JButton MainMenu = new JButton("Main Menu");
     private static JButton quit = new JButton("Quit");
 
-    public static void initialize() {
+    public static void removeAllDifficultyListeners() {
+        for (ActionListener al : newGameButton.getActionListeners()) {
+            newGameButton.removeActionListener(al);
+        }
+        for (ActionListener al : restart.getActionListeners()) {
+            restart.removeActionListener(al);
+        }
+        for (ActionListener al : MainMenu.getActionListeners()) {
+            MainMenu.removeActionListener(al);
+        }
+        for (ActionListener al : quit.getActionListeners()) {
+            quit.removeActionListener(al);
+        }
+    }
+
+    public static void initialize(long moveCount) {
+        if (winLabel != null && winLabel.getParent() != null) {
+            mainPanel.remove(winLabel);
+        }
+        winLabel = new JLabel("You Win!" + " It took " + String.valueOf(moveCount) + " moves!", SwingConstants.CENTER); // Create the label
         winImage = Menu.getWinImage();
         winImage = ImageProcessor.resizeImage(winImage, 500, 500);
 
@@ -147,23 +167,86 @@ public class WinMenu {
         Font buttonFont = new Font("Dialog", Font.BOLD, 15);
         Dimension buttonSize = new Dimension(150, 60);
 
+        ActionListener newGameListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    System.out.println("Image Selector called");
+                    ImageSelector.getInstance().selectGameImage();
+                } catch (Exception er) {
+                    System.err.println("Error: " + er.getMessage());
+                    er.printStackTrace();
+                }
+                removeAllDifficultyListeners();
+                frame.dispose();
+            }
+        };
         newGameButton.setFocusable(false);
         newGameButton.setFont(buttonFont);
         newGameButton.setPreferredSize(buttonSize);
         newGameButton.setBackground(new Color(0, 115, 150));
         buttonPanel.add(newGameButton);
+        newGameButton.addActionListener(newGameListener);
 
+        ActionListener restartListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Menu.imageHandling(2);
+                } catch (Exception er) {
+                    System.err.println("Error: " + er.getMessage());
+                    er.printStackTrace();
+                }
+                removeAllDifficultyListeners();
+                frame.dispose();
+            }
+        };
         restart.setFocusable(false);
         restart.setFont(buttonFont);
         restart.setPreferredSize(buttonSize);
         restart.setBackground(new Color(0, 115, 150));
         buttonPanel.add(restart);
+        restart.addActionListener(restartListener);
 
+        ActionListener MainMenuListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Menu.initialize();
+                } catch (Exception er) {
+                    System.err.println("Error: " + er.getMessage());
+                    er.printStackTrace();
+                }
+                frame.dispose();
+                removeAllDifficultyListeners();
+            }
+        };
+        MainMenu.setFocusable(false);
+        MainMenu.setFont(buttonFont);
+        MainMenu.setPreferredSize(buttonSize);
+        MainMenu.setBackground(new Color(0, 115, 150));
+        buttonPanel.add(MainMenu);
+        MainMenu.addActionListener(MainMenuListener);
+
+        ActionListener quitListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    System.exit(0);
+                } catch (Exception er) {
+                    System.err.println("Error: " + er.getMessage());
+                    er.printStackTrace();
+                }
+            }
+        };
         quit.setFocusable(false);
         quit.setFont(buttonFont);
         quit.setPreferredSize(buttonSize);
         quit.setBackground(new Color(0, 115, 150));
         buttonPanel.add(quit);
+        quit.addActionListener(quitListener);
+
+        /* 
 
         newGameButton.addActionListener(e -> {
             try {
@@ -177,17 +260,30 @@ public class WinMenu {
         });
 
         restart.addActionListener(e -> {
-            System.out.println("Restart button clicked - Implement game restart logic here");
-            java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(mainPanel);
-            if (window != null) {
-                window.dispose();
+            try{
+                Menu.imageHandling(2);
+            } catch (Exception er) { 
+                System.err.println("Error: " + er.getMessage());
+                er.printStackTrace();
             }
-            // You'll likely want to re-initialize your game Board here
+            frame.dispose();
+        });
+
+        MainMenu.addActionListener(e -> {
+            try {
+                Menu.initialize();
+            } catch (Exception er) {
+                System.err.println("Error: " + er.getMessage());
+                er.printStackTrace();
+            }
+            frame.dispose();
         });
 
         quit.addActionListener(e -> {
             System.exit(0);
         });
+
+        */
 
         // Get screen dimensions
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
