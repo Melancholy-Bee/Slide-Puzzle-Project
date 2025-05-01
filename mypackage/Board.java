@@ -2,7 +2,6 @@ package mypackage;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
@@ -16,7 +15,6 @@ public class Board extends JPanel {
     private ArrayList<ArrayList<BufferedImage>> originalImageGrid;
     private long moveCount = 0;
     private JLabel moveCounterLabel;
-    private JPanel boardPanel;
 
     BufferedImage animatingImg;
     Timer animatingTimer;
@@ -255,7 +253,7 @@ public class Board extends JPanel {
 
     //modifyed to allow for more buttons
     public static void show(ArrayList<ArrayList<BufferedImage>> imageGrid) {
-        JFrame frame = new JFrame("Sliding Puzzle");
+        JFrame frame = new JFrame("Picture This!");
         Board board = new Board(imageGrid);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());

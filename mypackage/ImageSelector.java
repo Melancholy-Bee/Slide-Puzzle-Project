@@ -27,7 +27,7 @@ public class ImageSelector {
     JPanel panel;
     File selectedFile;
     private ImageSelector(){
-        frame = new JFrame("Default Image Selector");
+        frame = new JFrame("Picture This!");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // Get screen dimensions
         frame.setSize(Menu.screenWidth, Menu.screenHeight);

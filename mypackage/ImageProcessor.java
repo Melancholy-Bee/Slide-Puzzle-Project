@@ -121,7 +121,7 @@ public class ImageProcessor {
         int n = imagePieces.size();
         int gap = 5;
 
-        JFrame frame = new JFrame("Chopped Image Display");
+        JFrame frame = new JFrame("Picture This!");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel() {

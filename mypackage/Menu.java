@@ -27,7 +27,7 @@ public class Menu {
 
     public static void initialize(){
         //initialize the frame and place panel on it
-        frame.setTitle("Picture This");
+        frame.setTitle("Picture This!");
         // Get screen dimensions
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         screenWidth = (int) (screenSize.width * 0.9); // 90% of screen width

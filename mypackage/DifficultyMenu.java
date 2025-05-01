@@ -42,7 +42,7 @@ public class DifficultyMenu {
     }
     
     public static void initialize(File image){
-        frame.setTitle("Difficulty Menu");
+        frame.setTitle("Picture This!");
         // Get screen dimensions
         frame.setSize(Menu.screenWidth, Menu.screenHeight);
         frame.setLocationRelativeTo(null);
