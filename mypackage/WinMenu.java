@@ -160,10 +160,7 @@ public class WinMenu {
         quit.addActionListener(quitListener);
 
         // Get screen dimensions
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = (int) (screenSize.width * 0.9); // 90% of screen width
-        int height = (int) (screenSize.height * 0.9); // 90% of screen height
-        frame.setSize(width, height);
+        frame.setSize(Menu.screenWidth, Menu.screenHeight);
         frame.setLocationRelativeTo(null); // Center on screen
         frame.setVisible(true);
     }

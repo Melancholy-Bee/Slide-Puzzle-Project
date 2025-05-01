@@ -61,7 +61,7 @@ public class SettingsMenu {
         defaultSizeButton.addActionListener(new ActionListener() { //Returns mainscreen to regular size
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainFrame.setSize(1000, 1000);
+                mainFrame.setSize(Menu.screenWidth, Menu.screenHeight);
                 mainFrame.setLocationRelativeTo(null);
             }
         });

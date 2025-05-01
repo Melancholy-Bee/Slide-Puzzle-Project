@@ -17,7 +17,6 @@ public class Board extends JPanel {
     private long moveCount = 0;
     private JLabel moveCounterLabel;
     private JPanel boardPanel;
-    private static int screenWidth, screenHeight;
 
     BufferedImage animatingImg;
     Timer animatingTimer;
@@ -38,9 +37,6 @@ public class Board extends JPanel {
         setLayout(new GridBagLayout());
         this.setBackground(new Color(169,221,214));
         initializeBoard(imageGrid);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        screenWidth = (int) (screenSize.width * 0.9); // 90% of screen width
-        screenHeight = (int) (screenSize.height * 0.9); // 90% of screen height
     }
 
     private void initializeBoard(ArrayList<ArrayList<BufferedImage>> imageGrid) {
@@ -368,7 +364,7 @@ public class Board extends JPanel {
 
         frame.pack();
         // Get screen dimensions
-        frame.setSize(screenWidth, screenHeight);
+        frame.setSize(Menu.screenWidth, Menu.screenHeight);
         frame.setLocationRelativeTo(null); // Center on screen
         frame.setVisible(true);
     }
