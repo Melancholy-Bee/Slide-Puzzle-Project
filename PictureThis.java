@@ -1,6 +1,6 @@
 import mypackage.Menu;
 
-class ButtonTestCode {
+class PictureThis {
     public static void main(String args[]){
         mypackage.DatabaseInitializer.initializeDatabase();
         Menu.initialize();

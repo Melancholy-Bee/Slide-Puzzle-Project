@@ -14,10 +14,9 @@ public class Board extends JPanel {
     private int gridSize;
     private Tile emptyTile;
     private ArrayList<ArrayList<BufferedImage>> originalImageGrid;
-    private int moveCount = 0;
+    private long moveCount = 0;
     private JLabel moveCounterLabel;
     private JPanel boardPanel;
-    private static int screenWidth, screenHeight;
 
     BufferedImage animatingImg;
     Timer animatingTimer;
@@ -38,9 +37,6 @@ public class Board extends JPanel {
         setLayout(new GridBagLayout());
         this.setBackground(new Color(169,221,214));
         initializeBoard(imageGrid);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        screenWidth = (int) (screenSize.width * 0.9); // 90% of screen width
-        screenHeight = (int) (screenSize.height * 0.9); // 90% of screen height
     }
 
     private void initializeBoard(ArrayList<ArrayList<BufferedImage>> imageGrid) {
@@ -73,6 +69,13 @@ public class Board extends JPanel {
                 }
             }
             tileGrid.add(rowTiles);
+        }
+        if(checkWin()){
+            java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(Board.this);
+            if (window != null) {
+                window.dispose();
+            }
+            Menu.imageHandling(Menu.size);
         }
     }
 
@@ -130,8 +133,11 @@ public class Board extends JPanel {
     }
 
     private void animateTile(Tile clicked){
+        if (animatingTimer != null && animatingTimer.isRunning()) {
+            animatingTimer.stop();
+        }
         animatingImg = clicked.getImage();
-        animatingTimer = new Timer(20, new ActionListener() {
+        animatingTimer = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
                 //change image position and repaint
@@ -193,33 +199,40 @@ public class Board extends JPanel {
     }
 
     private void refreshBoard() {
-        // Clear the current board
+        // Clean up old buttons (remove listeners to avoid memory leaks)
+        for (ArrayList<Tile> row : tileGrid) {
+            for (Tile tile : row) {
+                JButton btn = tile.getButton();
+                for (ActionListener al : btn.getActionListeners()) {
+                    btn.removeActionListener(al);
+                }
+            }
+        }
+
+        // Now remove all components
         removeAll();
-    
+
         // Re-add the tiles to the panel with the updated positions
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, 0, 0, 0); // No padding around the tiles
-        gbc.fill = GridBagConstraints.NONE; // No resizing of buttons
-    
-        // Iterate through the grid and re-add buttons
+        gbc.insets = new Insets(0, 0, 0, 0);
+        gbc.fill = GridBagConstraints.NONE;
+
         for (int row = 0; row < gridSize; row++) {
             for (int col = 0; col < gridSize; col++) {
                 Tile tile = tileGrid.get(row).get(col);
                 JButton button = makeTileButton(tile);
-                
-                // Update position based on the tile's position in the grid
                 gbc.gridx = col;
                 gbc.gridy = row;
                 add(button, gbc);
             }
         }
-    
-        // Revalidate and repaint to update the UI
+
         revalidate();
         repaint();
+
         if (checkWin()) {
-            WinMenu.initialize();
+            WinMenu.initialize(moveCount);
             java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(Board.this);
             if (window != null) {
                 window.dispose();
@@ -253,6 +266,7 @@ public class Board extends JPanel {
         settings.setFocusable(false);
         settings.setFont(new Font("Dialog", Font.BOLD, 15));
         settings.setPreferredSize(new Dimension(200, 75));
+        settings.setMaximumSize(new Dimension(250,80));
         settings.setBackground(new Color(0, 115, 150));
     
         settings.addActionListener(new ActionListener() {
@@ -266,6 +280,7 @@ public class Board extends JPanel {
         save.setFocusable(false);
         save.setFont(new Font("Dialog", Font.BOLD, 15));
         save.setPreferredSize(new Dimension(200, 75));
+        save.setMaximumSize(new Dimension(250,80));
         save.setBackground(new Color(0, 115, 150));
     
         //save.addActionListener(new ActionListener() {
@@ -278,6 +293,7 @@ public class Board extends JPanel {
         reset.setFocusable(false);
         reset.setFont(new Font("Dialog", Font.BOLD, 15));
         reset.setPreferredSize(new Dimension(200, 75));
+        reset.setMaximumSize(new Dimension(250,80));
         reset.setBackground(new Color(0, 115, 150));
 
         reset.addActionListener(new ActionListener() {
@@ -298,6 +314,7 @@ public class Board extends JPanel {
         load.setFocusable(false);
         load.setFont(new Font("Dialog", Font.BOLD, 15));
         load.setPreferredSize(new Dimension(200, 75));
+        load.setMaximumSize(new Dimension(250,80));
         load.setBackground(new Color(0, 115, 150));
     
         //load.addActionListener(new ActionListener() {
@@ -309,6 +326,7 @@ public class Board extends JPanel {
         newGame.setFocusable(false);
         newGame.setFont(new Font("Dialog", Font.BOLD, 15));
         newGame.setPreferredSize(new Dimension(200, 75));
+        newGame.setMaximumSize(new Dimension(250,80));
         newGame.setBackground(new Color(0, 115, 150));
     
         newGame.addActionListener(new ActionListener() {
@@ -346,15 +364,9 @@ public class Board extends JPanel {
 
         frame.pack();
         // Get screen dimensions
-        frame.setSize(screenWidth, screenHeight);
+        frame.setSize(Menu.screenWidth, Menu.screenHeight);
         frame.setLocationRelativeTo(null); // Center on screen
         frame.setVisible(true);
-    
-        /*  Finalize frame
-        frame.pack();
-        frame.setSize(1000, 1000);
-        frame.setLocationRelativeTo(null); // center on screen
-        frame.setVisible(true); */
     }
 
 }

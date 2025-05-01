@@ -21,15 +21,18 @@ public class Menu {
     private static JButton settings = new JButton("Settings");
     private static JButton quit = new JButton("Quit");
     private static BufferedImage winBufferedImage;
+    public static int size;
+    public static int screenWidth;
+    public static int screenHeight;
 
     public static void initialize(){
         //initialize the frame and place panel on it
         frame.setTitle("Picture This");
         // Get screen dimensions
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = (int) (screenSize.width * 0.9); // 90% of screen width
-        int height = (int) (screenSize.height * 0.9); // 90% of screen height
-        frame.setSize(width, height);
+        screenWidth = (int) (screenSize.width * 0.9); // 90% of screen width
+        screenHeight = (int) (screenSize.height * 0.9); // 90% of screen height
+        frame.setSize(screenWidth, screenHeight);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel, BorderLayout.CENTER);
@@ -106,6 +109,7 @@ public class Menu {
     }
 
     public static void imageHandling(int n){
+        size = n;
         File selectedFile = ImageSelector.getInstance().selectedFile;
 
         while(selectedFile == null) {

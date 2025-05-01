@@ -154,7 +154,7 @@ public class ImageProcessor {
         frame.setVisible(true);
     }
 
-    public static ArrayList<ArrayList<BufferedImage>> randomize(ArrayList<ArrayList<BufferedImage>> imagePieces){
+    public static ArrayList<ArrayList<BufferedImage>> randomize(ArrayList<ArrayList<BufferedImage>> imagePieces) {
         if (imagePieces.isEmpty()) return imagePieces;
 
         goal.clear();
@@ -170,41 +170,72 @@ public class ImageProcessor {
         }
 
         ArrayList<Integer> indexs = new ArrayList<>();
-        for(int i = 0; i <= flatList.size(); i++){
+        for (int i = 0; i <= flatList.size(); i++) {
             indexs.add(i);
         }
 
         Random r = new Random();
-        for (int i = flatList.size() - 1; i > 0; i--) {
-            int j = r.nextInt(i + 1);
-            BufferedImage temp = flatList.get(i);
-            flatList.set(i, flatList.get(j));
-            flatList.set(j, temp);
 
-            int tempI = indexs.get(i);
-            indexs.set(i, indexs.get(j));
-            indexs.set(j, tempI);
-        }
+        boolean validShuffle = false;
 
-        int inversions = 0;
-        for (int i = 0; i < indexs.size() - 1; i++) {
-            for (int j = i + 1; j < indexs.size(); j++) {
-                if (indexs.get(i) > indexs.get(j)) {
-                    inversions++;
+        while (!validShuffle) {
+            // Shuffle flatList and indexs
+            for (int i = flatList.size() - 1; i > 0; i--) {
+                int j = r.nextInt(i + 1);
+
+                BufferedImage tempImg = flatList.get(i);
+                flatList.set(i, flatList.get(j));
+                flatList.set(j, tempImg);
+
+                int tempIdx = indexs.get(i);
+                indexs.set(i, indexs.get(j));
+                indexs.set(j, tempIdx);
+            }
+
+            // Check if the result is NOT already solved
+            boolean isSolved = true;
+            for (int i = 0; i < indexs.size(); i++) {
+                if (indexs.get(i) != i) {
+                    isSolved = false;
+                    break;
                 }
+            }
+
+            // Count inversions
+            int inversions = 0;
+            for (int i = 0; i < indexs.size() - 1; i++) {
+                for (int j = i + 1; j < indexs.size(); j++) {
+                    if (indexs.get(i) > indexs.get(j)) {
+                        inversions++;
+                    }
+                }
+            }
+
+            // If odd, swap to make solvable
+            if (inversions % 2 != 0) {
+                BufferedImage tempImg = flatList.get(0);
+                flatList.set(0, flatList.get(1));
+                flatList.set(1, tempImg);
+
+                int tempIdx = indexs.get(0);
+                indexs.set(0, indexs.get(1));
+                indexs.set(1, tempIdx);
+            }
+
+            // Recheck if solved after inversion fix
+            isSolved = true;
+            for (int i = 0; i < indexs.size(); i++) {
+                if (indexs.get(i) != i) {
+                    isSolved = false;
+                    break;
+                }
+            }
+
+            if (!isSolved) {
+                validShuffle = true;
             }
         }
 
-        if(inversions % 2 != 0){
-            BufferedImage temp = flatList.get(0);
-            flatList.set(0, flatList.get(1));
-            flatList.set(1, temp); 
-
-            Integer tempNum = indexs.get(0);
-            indexs.set(0, indexs.get(1));
-            indexs.set(1, tempNum);
-        }
-        
         int index = 0;
         for (int i = 0; i < imagePieces.size(); i++) {
             for (int j = 0; j < imagePieces.get(i).size(); j++) {
@@ -215,9 +246,7 @@ public class ImageProcessor {
         imagePieces.get(lastRow).add(null);
         indexs.add(indexs.size());
 
-
         int n = (int) Math.sqrt(indexs.size());
-
         for (int i = 0; i < indexs.size(); i += n) {
             ArrayList<Integer> row = new ArrayList<>();
             for (int j = i; j < i + n && j < indexs.size(); j++) {

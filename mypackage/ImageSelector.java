@@ -30,10 +30,7 @@ public class ImageSelector {
         frame = new JFrame("Default Image Selector");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // Get screen dimensions
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = (int) (screenSize.width * 0.9); // 90% of screen width
-        int height = (int) (screenSize.height * 0.9); // 90% of screen height
-        frame.setSize(width, height);
+        frame.setSize(Menu.screenWidth, Menu.screenHeight);
         frame.setLocationRelativeTo(null);
         windowOpen = true;
         panel = new JPanel();
