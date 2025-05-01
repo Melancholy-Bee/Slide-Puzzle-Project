@@ -89,7 +89,12 @@ public class ImageSelector {
                 imageButtons.get(i).setFocusable(false);
                 imageButtons.get(i).setBackground(new Color(0,115,150));
                 panel.add(imageButtons.get(i), gbc);
-                gbc.gridy++;
+                
+                //constrain the images to 2 columns
+                gbc.gridx = (gbc.gridx+1)%2;
+                if(gbc.gridx == 0){
+                    gbc.gridy++;
+                }
             }
     }
 
@@ -106,25 +111,33 @@ public class ImageSelector {
         frame.getContentPane().removeAll();
         frame.getContentPane().repaint();
 
-        addImages(imageButtons, gbc);
+        //add upload button
         JButton upload = new JButton("Upload");
         upload.setFocusable(false);
         upload.setPreferredSize(new Dimension(200,75));
         upload.setFont(new Font("Dialog", Font.BOLD, 15));
         upload.setBackground(new Color(0,115,150));
-        gbc.gridy = imageButtons.size()+1;
+        gbc.gridy = 0;
         panel.add(upload, gbc);
 
+        //add image buttons
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        addImages(imageButtons, gbc);
+
+        //set upload button action
         upload.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    ImageService.saveImage(ImageService.fileFinder());
-                    ImageSelector.getInstance().selectGameImage();
+                    File temp = ImageService.fileFinder();
+                    if(temp != null){
+                        ImageService.saveImage(temp);
+                        ImageSelector.getInstance().selectGameImage();
+                    }
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
-                frame.dispose();
             }
         });
 
