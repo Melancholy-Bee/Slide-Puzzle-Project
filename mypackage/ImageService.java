@@ -5,6 +5,7 @@ import java.nio.file.Files;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
+import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
@@ -12,18 +13,30 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.awt.Image;
 
 
-//Class and methods written by Landon Armstrong
+//Class written by Landon Armstrong
 public class ImageService {
 
     //opens a file selector, filters for JPG, JPEG, and PNG images
     public static File fileFinder() throws Exception{
-        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG, JPEG, and PNG Images", "jpg", "jpeg", "png");
-        chooser.setFileFilter(filter);
-        int returnVal = chooser.showOpenDialog(null);
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
-            return chooser.getSelectedFile();
+        try{
+            //store current UI settings
+            LookAndFeel tempAppearance = UIManager.getLookAndFeel();
+
+            //open file selector with appearance of the OS UI
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            JFileChooser chooser = new JFileChooser();
+            //filter for only images
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG, JPEG, and PNG Images", "jpg", "jpeg", "png");
+            chooser.setFileFilter(filter);
+            int returnVal = chooser.showOpenDialog(null);
+
+            //reset UI settings
+            UIManager.setLookAndFeel(tempAppearance);
+            if(returnVal == JFileChooser.APPROVE_OPTION) {
+                return chooser.getSelectedFile();
+            }
+        } catch (Exception e){
+            e.printStackTrace();
         }
         //return null if no file is chosen
         return null;
@@ -31,14 +44,26 @@ public class ImageService {
 
     //opens file selector at specified folder
     public static File fileFinder(String path) throws Exception{
-        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        System.out.println(path);
-        JFileChooser chooser = new JFileChooser(new File(path));
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG, JPEG, and PNG Images", "jpg", "jpeg", "png");
-        chooser.setFileFilter(filter);
-        int returnVal = chooser.showOpenDialog(null);
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
-            return chooser.getSelectedFile();
+        try{
+            //store current UI settings
+            LookAndFeel tempAppearance = UIManager.getLookAndFeel();
+
+            //open file selector with appearance of the OS UI
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            System.out.println(path);
+            JFileChooser chooser = new JFileChooser(new File(path));
+            //filter for only images
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG, JPEG, and PNG Images", "jpg", "jpeg", "png");
+            chooser.setFileFilter(filter);
+            int returnVal = chooser.showOpenDialog(null);
+
+            //reset UI settings
+            UIManager.setLookAndFeel(tempAppearance);
+            if(returnVal == JFileChooser.APPROVE_OPTION) {
+                return chooser.getSelectedFile();
+            }
+        } catch (Exception e){
+            e.printStackTrace();
         }
         //return null if no file is chosen
         return null;
