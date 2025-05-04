@@ -8,8 +8,6 @@ import java.awt.event.ActionListener;
 public class SettingsMenu {
     private static JFrame settingsFrame = new JFrame("Settings");
     private static JPanel panel = new JPanel();
-    private static JButton emptyButton1 = new JButton("Music Toggle");
-    private static JButton emptyButton2 = new JButton("Background Color");
     private static JButton defaultSizeButton = new JButton("Default Size");
     private static JButton fitScreenButton = new JButton("Fit to Screen");
     private static JButton returnButton = new JButton("Return to Menu");
@@ -21,38 +19,11 @@ public class SettingsMenu {
         settingsFrame.setLayout(new BorderLayout());
 
         panel.setBackground(new Color(169,221,214));
-        panel.setLayout(new GridLayout(5, 1, 10, 10));
-        panel.add(emptyButton1);
-        panel.add(emptyButton2);
+        panel.setLayout(new GridLayout(3, 1, 10, 10));
         panel.add(defaultSizeButton);
         panel.add(fitScreenButton);
         panel.add(returnButton);
         
-
-        emptyButton1.setFocusable((false));
-        emptyButton1.setFont(new Font("Dialog", Font.BOLD, 15));
-        emptyButton1.setPreferredSize(new Dimension(200,75));
-        emptyButton1.setBackground(new Color(0,115,150));
-        emptyButton1.addActionListener(new ActionListener() { //Closes the settings menu
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                settingsFrame.dispose(); 
-            }
-        });
-                //will add functionality if able
-
-
-        emptyButton2.setFocusable((false));
-        emptyButton2.setFont(new Font("Dialog", Font.BOLD, 15));
-        emptyButton2.setPreferredSize(new Dimension(200,75));
-        emptyButton2.setBackground(new Color(0,115,150));
-        emptyButton2.addActionListener(new ActionListener() { //Closes the settings menu
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                settingsFrame.dispose(); 
-            }
-        });
-
 
         defaultSizeButton.setFocusable((false));
         defaultSizeButton.setFont(new Font("Dialog", Font.BOLD, 15));
