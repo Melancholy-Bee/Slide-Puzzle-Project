@@ -1,19 +1,23 @@
 package mypackage;
 
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 //Written By Kason Adsit
 
 public class ImageProcessor {
     public static ArrayList<ArrayList<Integer>> goal = new ArrayList<>();
+
+    //addition for database (maura)
+    private static ArrayList<ArrayList<BufferedImage>> originalImageGrid;
+    //end addition for database (maura)
 
     public static ArrayList<ArrayList<BufferedImage>> processImage(File imageFile, int n) {
         try {
