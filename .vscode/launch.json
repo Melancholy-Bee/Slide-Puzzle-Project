@@ -1,0 +1,19 @@
+{
+    "type": "java",
+    "name": "Launch Puzzle Game",
+    "request": "launch",
+    "mainClass": "PictureThis",
+    "projectName": "your-project-name",
+    "vmArgs": "-cp .;sqlite-jdbc-3.49.1.0.jar",
+    "configurations": [
+      {
+        "type": "java",
+        "name": "PictureThis",
+        "request": "launch",
+        "mainClass": "PictureThis",
+        "projectName": "Slide-Puzzle-Project_340c2028"
+      }
+    ]
+  }
+  
+  
