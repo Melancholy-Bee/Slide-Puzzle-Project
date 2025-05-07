@@ -15,11 +15,7 @@ public class Tile implements Serializable{
     private JButton respectiveButton;
 
     //addition for database (maura)
-    public int getposX() { return posX; }
-    public void setposX(int posX) { this.posX = posX; }
-    public int getposY() { return posY; }
-    public void setposY(int posY) { this.posY = posY; }
-
+    
     private void writeObject(ObjectOutputStream oos) throws IOException {
         oos.defaultWriteObject();
         
@@ -128,7 +124,14 @@ public class Tile implements Serializable{
 
       public void setImage(BufferedImage image) {
         this.image = image;
-    }      
+    }
+    
+    public void setIsEmpty(boolean isEmpty) {
+        if (isEmpty) {
+            this.image = null;
+        }
+    }
+    
     //end addition
 
 }

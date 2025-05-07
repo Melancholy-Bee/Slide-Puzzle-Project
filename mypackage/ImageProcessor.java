@@ -16,7 +16,8 @@ public class ImageProcessor {
     public static ArrayList<ArrayList<Integer>> goal = new ArrayList<>();
 
     //addition for database (maura)
-    private static ArrayList<ArrayList<BufferedImage>> originalImageGrid;
+    public static BufferedImage[][] originalImageGrid;
+      
     //end addition for database (maura)
 
     public static ArrayList<ArrayList<BufferedImage>> processImage(File imageFile, int n) {
@@ -261,5 +262,16 @@ public class ImageProcessor {
 
         return imagePieces;
     }
+
+    //addition for deserialization
+    public BufferedImage[][] sliceImage(BufferedImage image, int rows, int cols) {
+        originalImageGrid = new BufferedImage[rows][cols];
+        return originalImageGrid;
+    }
+    
+    public static BufferedImage[][] getOriginalImageGrid() {
+        return originalImageGrid;
+    }
+    //end addition
 
 }

@@ -23,9 +23,11 @@ public class Board extends JPanel {
     private JLabel moveCounterLabel;
 
     //additions for database (maura)
+    private JFrame frame;
     private JPanel boardPanel;
     private static int screenWidth, screenHeight;
     private static final DatabaseManager db = new DatabaseManager();
+    //end additions
     
     BufferedImage animatingImg;
     Timer animatingTimer;
@@ -146,13 +148,7 @@ public class Board extends JPanel {
     }
 
     //addition for database (maura)
-    public void handleTileClick(Tile tile) {
-        if (isValidMove(tile)) {
-          moveTile(tile);
-          moveCount++;
-          refreshBoard();
-        }
-    }
+   
 
     public void updateBoardDisplay() {
         if (boardPanel == null) {
@@ -289,152 +285,95 @@ public class Board extends JPanel {
         sb.append("\"emptyX\":").append(emptyTile.getPosX()).append(",");
         sb.append("\"emptyY\":").append(emptyTile.getPosY()).append(",");
         sb.append("\"tiles\":[");
-        
+    
         for (int row = 0; row < gridSize; row++) {
-          for (int col = 0; col < gridSize; col++) {
-            Tile tile = tileGrid.get(row).get(col);
-            sb.append("{")
-              .append("\"currentX\":").append(row).append(",")  // Position in grid
-              .append("\"currentY\":").append(col).append(",")  // Position in grid
-              .append("\"goalX\":").append(tile.getGoalX()).append(",")
-              .append("\"goalY\":").append(tile.getGoalY()).append(",")
-              .append("\"tileId\":").append(row * gridSize + col)
-              .append("},");
-          }
+            for (int col = 0; col < gridSize; col++) {
+                Tile tile = tileGrid.get(row).get(col);
+                sb.append("{")
+                  .append("\"currentX\":").append(row).append(",")  // Position in grid
+                  .append("\"currentY\":").append(col).append(",")  // Position in grid
+                  .append("\"goalX\":").append(tile.getGoalX()).append(",")
+                  .append("\"goalY\":").append(tile.getGoalY()).append(",")
+                  .append("\"tileId\":").append(row * gridSize + col)
+                  .append("},");
+            }
         }
-      
-        if (sb.charAt(sb.length() - 1) == ',') sb.deleteCharAt(sb.length() - 1);
+    
+        if (sb.charAt(sb.length() - 1) == ',') sb.deleteCharAt(sb.length() - 1);  // Remove trailing comma
         sb.append("]");
         sb.append("}");
         return sb.toString();
     }
+    
 
      //board deserialize (maura)
-    public void deserializeBoard(String data) {
+     public void deserializeBoard(String data) {
         data = data.trim();
-        data = data.substring(1, data.length() - 1);
-
+        if (data.startsWith("{") && data.endsWith("}")) {
+            data = data.substring(1, data.length() - 1); 
+        }
+    
         String[] parts = data.split("\"tiles\":\\[", 2);
+        if (parts.length < 2) {
+            System.err.println("Invalid save data format.");
+            return;
+        }
+    
         String header = parts[0];
-        String tilesPart = parts[1].substring(0, parts[1].length() - 1);
-
-        // Parse header fields
+        String tilesPart = parts[1];
+        if (tilesPart.endsWith("]")) {
+            tilesPart = tilesPart.substring(0, tilesPart.length() - 1); 
+        }
+    
+        // Parse metadata
         String[] fields = header.split(",");
         gridSize = Integer.parseInt(fields[0].split(":")[1].trim());
         moveCount = Long.parseLong(fields[1].split(":")[1].trim());
         int emptyX = Integer.parseInt(fields[2].split(":")[1].trim());
         int emptyY = Integer.parseInt(fields[3].split(":")[1].trim());
-
-        // Initialize grid with nulls
+    
+        // Initialize tileGrid with size gridSize
         tileGrid = new ArrayList<>();
         for (int i = 0; i < gridSize; i++) {
-            ArrayList<Tile> row = new ArrayList<>(Collections.nCopies(gridSize, null));
-            tileGrid.add(row);
-    }
-
-        // Split the tiles data and loop through each entry to deserialize
+            tileGrid.add(new ArrayList<>(Collections.nCopies(gridSize, (Tile) null)));
+        }
+    
+        // Parse tiles data
         String[] entries = tilesPart.split("\\},\\{");
-        ArrayList<Tile> tiles = new ArrayList<>();
-
         for (String entry : entries) {
             entry = entry.replace("{", "").replace("}", "");
             String[] kv = entry.split(",");
-
-            int currentX = Integer.parseInt(kv[0].split(":")[1].trim());
-            int currentY = Integer.parseInt(kv[1].split(":")[1].trim());
-            int goalX = Integer.parseInt(kv[2].split(":")[1].trim());
-            int goalY = Integer.parseInt(kv[3].split(":")[1].trim());
+    
+            int currentX = Integer.parseInt(kv[0].split(":")[1].trim());  
+            int currentY = Integer.parseInt(kv[1].split(":")[1].trim());  
+            int goalX = Integer.parseInt(kv[2].split(":")[1].trim());  
+            int goalY = Integer.parseInt(kv[3].split(":")[1].trim());  
             int tileId = Integer.parseInt(kv[4].split(":")[1].trim());
-
-            // Use goal position for the image
-
-            
-            BufferedImage img = ImageProcessor.getOriginalImageGrid().get(goalY).get(goalX);
-            Tile tile = new Tile(img, goalX, goalY);
-            tile.setPosX(currentX);
-            tile.setPosY(currentY);
-
-            // Add the tile to a list for reference
-            tiles.add(tile);
-
-            // If this tile is the empty space, assign it
+    
+            // Ensure image is assigned properly
+            BufferedImage image = originalImageGrid.get(goalY).get(goalX); 
+            Tile tile = new Tile(image, goalX, goalY);
+            tile.setPosX(currentY);  
+            tile.setPosY(currentX);  
+    
+            // Check if this is the empty tile
             if (currentX == emptyX && currentY == emptyY) {
-                emptyTile = tile;
+                tile.setIsEmpty(true);
+                emptyTile = tile; 
             }
+    
+            // Create button for the tile
+            JButton button = makeTileButton(tile);
+            tile.setButton(button);
+    
+            // Place the tile in the grid
+            tileGrid.get(currentY).set(currentX, tile);
         }
-
-        // Now, place each tile in the grid according to its calculated position
-        for (Tile tile : tiles) {
-            int posX = tile.getPosX();
-            int posY = tile.getPosY();
-            tileGrid.get(posY).set(posX, tile);
-        }
-
-        // Rebuild the visual board with buttons
-        removeAll();  // Remove old buttons from the panel
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, 0, 0, 0);
-        gbc.fill = GridBagConstraints.NONE;
-
-        for (int row = 0; row < gridSize; row++) {
-            for (int col = 0; col < gridSize; col++) {
-                Tile tile = tileGrid.get(row).get(col);
-                JButton button = makeTileButton(tile);
-                GridBagConstraints constraints = new GridBagConstraints();
-                constraints.gridx = col;
-                constraints.gridy = row;
-                constraints.insets = new Insets(0, 0, 0, 0);
-                add(button, constraints);
-            }
-        }
-        revalidate();
-        repaint();
-
-        // After all tiles are placed, make sure the empty tile is set correctly
-        // (emptyTile already has the correct position and image set to null).
-        // We can also clear the image of the empty tile if necessary:
-        if (emptyTile != null) {
-            JButton emptyButton = new JButton();
-            emptyButton.setPreferredSize(new Dimension(100, 100)); // or match tile size
-            emptyButton.setBackground(Color.LIGHT_GRAY);
-            emptyButton.setBorderPainted(false);
-            emptyButton.setFocusPainted(false);
-            emptyButton.setContentAreaFilled(false);
-            emptyTile.setButton(emptyButton);
-        }
-
-
-        // Refresh the board display
+    
+        // Refresh board after loading
         refreshBoard();
-
-        // Rebuild the JButton grid for display and interaction
-        for (int row = 0; row < gridSize; row++) {
-            for (int col = 0; col < gridSize; col++) {
-                Tile tile = tileGrid.get(row).get(col);
-                JButton button;
-
-                if (tile == emptyTile || tile.getImage() == null) {
-                    button = new JButton();  // Empty or missing image
-                    button.setBackground(Color.WHITE);  // Optional styling
-                } else {
-                    button = new JButton(new ImageIcon(tile.getImage()));
-                }
-                
-
-            // Replace with your actual click handler
-                button.addActionListener(e -> handleTileClick(tile));
-
-                tile.setButton(button);
-            }
-        }
-
-        boardPanel = new JPanel(new GridLayout(gridSize, gridSize));
-        frame.add(boardPanel, BorderLayout.CENTER);
-
-        // Update the display of the board
-        updateBoardDisplay();
     }
+    
 
     //write serialized board (maura)
     public void saveToFile(String path) {
@@ -507,10 +446,7 @@ public class Board extends JPanel {
             }
         
             private void saveBoardState() {
-                // Serialize the board state to a JSON-like string
                 String serializedBoard = serializeBoard();
-        
-                // Save the serialized board state to a file (game_state.json)
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter("game_state.json"))) {
                     writer.write(serializedBoard);
                 } catch (IOException e) {
