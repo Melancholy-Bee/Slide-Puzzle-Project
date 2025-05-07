@@ -431,6 +431,7 @@ public class Board extends JPanel {
         });
 
         //save button rebecca
+        JButton save = new JButton("Save");
         save.setFocusable(false);
         save.setFont(new Font("Dialog", Font.BOLD, 15));
         save.setPreferredSize(new Dimension(200, 75));
@@ -446,7 +447,7 @@ public class Board extends JPanel {
             }
         
             private void saveBoardState() {
-                String serializedBoard = serializeBoard();
+                String serializedBoard = board.serializeBoard();
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter("game_state.json"))) {
                     writer.write(serializedBoard);
                 } catch (IOException e) {
@@ -478,6 +479,7 @@ public class Board extends JPanel {
         });
 
         //load button rebecca
+        JButton load = new JButton("Load");
         load.setFocusable(false);
         load.setFont(new Font("Dialog", Font.BOLD, 15));
         load.setPreferredSize(new Dimension(200, 75));
